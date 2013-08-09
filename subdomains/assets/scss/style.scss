@@ -1,0 +1,620 @@
+@import "config";
+@import "iconfonts";
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "STHeitiSC-Light", "Roboto", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
+  font-weight: 100;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  -webkit-tap-highlight-color: rgba($color-white, 0);
+  -webkit-user-select: none;
+
+}
+a {
+  color: white;
+  font-family: "STHeitiSC-Light", "Roboto", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
+  font-weight: 500;
+  -webkit-font-smoothing: subpixel-antialiased !important;
+}
+body {
+  margin:0;
+  padding:0;
+  height:120%;
+  min-height: 500px;
+  -webkit-backface-visibility: hidden;
+}
+
+#search {
+  position: absolute;
+  top: -150px;
+  z-index: $zindex-search;
+  width: 100%;
+  height: 124px;
+  background: rgba($color-red,.95);
+
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
+
+  span {
+    float: right;
+    margin: 8px 8px 0 0;
+    padding: 0 8px;
+    height: ($size-hearder-height - 14);
+    border: 1px solid lighten($color-red, 90%);
+    border-radius: 2px;
+    background-color: lighten($color-red, 5%);
+    color: $color-white;
+    //text-shadow: 0 -1px 0 darken($color-red, 10%);// 1px 1px 1px $color-black;
+    font-size: 11px;
+    line-height: ($size-hearder-height - 14);
+  }
+  input {
+    margin: 4px 4px 0 4px;
+    padding: 5px;
+    width: 75%;
+    height: 40px;
+    border: 1px solid lighten($color-red, 10%);
+    border-radius: 2px;
+    font-size: 16px;
+
+    -webkit-touch-callout: default;
+    -webkit-user-select: auto;
+
+    &.active {
+      position: absolute;
+    }
+  }
+  &.active {
+    top: -78px;
+    padding-top: 78px;
+    &+div{
+      display: block;
+    }
+  }
+}
+#searchcontent {
+  position: absolute;
+  top: $size-hearder-height;
+  z-index: $zindex-searchcontent;
+  display: none;
+  width: 100%;
+  height: 120%;
+  background: $color-white;
+  padding-top: 12px;
+}
+
+header {
+  position: absolute;
+  z-index: $zindex-header;
+  width: 100%;
+  height: 75px;
+  background: transparent;
+  color: $color-white;
+  text-align: center;
+  text-shadow: 0 -1px 0 darken($color-red, 10%);// 1px 1px 1px $color-black;
+  h1{
+    font-size: 14px;
+    height: $size-hearder-height;
+    background: rgba($color-red,.95);
+
+    strong {
+      position: relative;
+      font-size: 15px;
+      top: -17px;
+      left: -7px;
+    }
+  }
+  span{
+    position: relative;
+    top: 6px;
+    margin-right: 4px;
+    font-size: 35px;
+  }
+}
+
+#menu {
+  position: absolute;
+  z-index: $zindex-menu;
+  padding: 14px 0px 12px 0;
+  width: 44px;
+  color: rgba($color-white,1);
+  text-shadow: 0 -1px 0 darken($color-red, 10%);// 1px 1px 1px $color-black;
+  font-size: 20px;
+  img {
+    display: none;
+  }
+  .icon-list {
+    padding: 14px 14px 14px 12px;
+  }
+  &.active {
+    background: $color-white;
+    .icon-list {
+      background: $color-white;
+      color: $color-red;
+      text-shadow: 1px 1px 1px $color-white;
+    }
+    &+div {
+      left: 0;
+    }
+  }
+
+  &.loggedin {
+    img {
+      position: relative;
+      top: -2px;
+      left: 8px;
+      display: inline-block;
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      background-color: saturate($color-red, 10%);
+    }
+    .icon-list {
+      display: none;
+    }
+  }
+}
+
+#menulist {
+  position: absolute;
+  top: $size-hearder-height;
+  left: -100%;
+  z-index: $zindex-menulist;
+  display:block;
+  overflow: hidden;
+  padding: 5px;
+  width: 100%;
+  height: 120%;
+  background: $color-white;
+  color: $color-black;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 2em;
+
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
+
+  .facebook_logout {
+    float: right;
+    color: $color-red;
+  }
+
+  img {
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid $color-red;
+    vertical-align: middle;
+  }
+
+  span img {
+    width: 35px;
+    border: 0;
+  }
+
+  a {
+    color: $color-black;
+  }
+
+  button {
+    margin-top: 10px;
+    width: 84%;
+    height: $size-hearder-height;
+    border: 0;
+    border-radius: 3px;
+    vertical-align: middle;
+    text-align: left;
+    font-size: 16px;
+    line-height: 46px;
+    text-align: center;
+    & span {
+      position: relative;
+      top: 6px;
+      padding-right: 5px;
+      font-size: 30px;
+    }
+    &.facebook {
+      color: $color-white;
+      background-color: $color-facebook;
+    }
+  }
+  button.facebook {
+    margin-left: 6%;
+  }
+  li {
+    margin-bottom: 15px;
+  }
+}
+
+#timer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: $zindex-timer;
+  padding: 0 0 12px 12px;
+  height: 55px;
+  color: rgba($color-white,1);
+  text-shadow: 0 -1px 0 darken($color-red, 10%);// 1px 1px 1px $color-black;
+  font-size: 22px;
+  strong {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+    font-weight: 300;
+  }
+  .icon-cycle {
+    padding: 12px;
+    height: $size-hearder-height;
+    display: inline-block;
+  }
+}
+
+#timerlist {
+  position: absolute;
+  top: -140%;
+  width: 100%;
+  height: 120%;
+  background-color: $color-white;
+  z-index: $zindex-timerlist;
+  padding: 12px 0;
+  &.active {
+    top: $size-hearder-height;
+  }
+  h2 {
+    margin: 5px 6% 15px 6%;
+    span {
+      font-size: 9px;
+    }
+  }
+  ul {
+    li {
+      margin-bottom: 15px;
+      &.active {
+        color: lighten($color-black, 60%);
+      }
+    }
+    strong {
+      display: inline-block;
+      width: 35px;
+      font-weight: bold;
+      font-size: 110%;
+    }
+    margin: 0 6%;
+    list-style: none;
+    .duration{
+      float: right;
+      font-size: 30px;
+    }
+    .icon-stopwatch {
+      float: left;
+      margin-right: 5px;
+      padding-top: 3px;
+      font-size: 18px;
+      color: $color-red;
+    }
+    .start, .stop {
+      font-size: 10px;
+    }
+    .start {
+      display: block;
+    }
+  }
+}
+
+#parseTime {
+  position: absolute;
+  top: 36px;
+  right: 10px;
+  z-index: $zindex-parseTime;
+  color: rgba($color-white,1);
+  text-shadow: 0 -1px 0 darken($color-red, 10%);// 1px 1px 1px $color-black;
+  font-weight: 100;
+  font-size: 10px;
+}
+
+#mapbikes {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+#docks {
+  overflow: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  height: 200px;
+  -webkit-overflow-scrolling: touch;
+}
+
+#resetlocation {
+  position:absolute;
+  left: 0;
+  z-index: $zindex-resetlocation;
+  display: none;
+  overflow: hidden;
+  padding: 10px 15px;
+  width: 65px;
+  height: 60px;
+}
+#bookmarks {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  z-index: $zindex-bookmarks;
+  display: block;
+  padding: 10px 15px;
+  width: 65px;
+  height: 60px;
+  &.active {
+    &+div{
+      display: block;
+    }
+    &>span {
+      color: $color-red;
+      background: $color-white;
+      border: 1px solid $color-red;
+    }
+  }
+}
+#resetlocation span, #bookmarks span {
+  position: relative;
+  display: block;
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  background: $color-red;
+  color: $color-white;
+  text-shadow: 1px 2px 1px darken($color-red, 10%);// 1px 1px 1px $color-black;
+  font-size: 18px;
+}
+
+#bookmarkscontent {
+  position: absolute;
+  top: $size-hearder-height;
+  z-index: $zindex-bookmarkscontent;
+  display: none;
+  width: 100%;
+  height: 120%;
+  background: $color-white;
+  padding-top: 12px;
+  h2 {
+    padding: 12px;
+  }
+  ul {
+    list-style: none;
+  }
+  li {
+    line-height: 20px;
+    padding: 6px 12px;
+    border-bottom: 1px solid darken($color-white, 8%);
+    background-color: darken($color-white, 4%);
+    &.zebra {
+      background-color: $color-white;
+    }
+  }
+  p {
+    font-size: 16px;
+    padding: 12px;
+  }
+  span {
+    color: $color-red;
+  }
+  .available_bikes, .available_docks, .distance {
+    color: $color-black;
+  }
+  .available_bikes {
+    margin: 0 5px 0 15px;
+    span {
+      color: $color-red;
+    }
+  }
+  .available_docks {
+    span {
+      color: $color-blu-light;
+    }
+  }
+  .distance {
+    font-size: 14px;
+    strong {
+      font-size: 16px;
+    }
+  }
+  .icon-trashcan {
+    position: relative;
+    right: -10px;
+    float: right;
+    padding: 10px;
+    color: $color-red;
+    font-size: 15px;
+  }
+}
+
+
+#dock {
+  position: absolute;
+  top: 1000px;
+  z-index: $zindex-dock;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 150px;
+  background: $color-white;
+  border-top: 2px solid $color-red;
+  font-size: 20px;
+
+  -webkit-transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease;
+
+  .setbookmark {
+    position: absolute;
+    right: 0;
+    top: -4px;
+    background-color: transparent;
+    strong {
+      position: absolute;
+      top: 13px;
+      right: 44px;
+      font-size: 10px;
+      color: lighten($color-black, 20%);
+    }
+    .icon-bookmark {
+      color: $color-red;
+      font-size: 36px;
+      text-shadow: 2px 2px 2px darken($color-red, 10%);// 1px 1px 1px $color-black;
+      padding: 10px;
+      &.added {
+        color: lighten($color-black, 80%);
+        text-shadow: 2px 2px 2px lighten($color-black, 20%);// 1px 1px 1px $color-black;
+      }
+    }
+  }
+
+  .close {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    z-index: $zindex-dockclose;
+    width: 18%;
+    height: 35px;
+    margin: 0 0 0 -9%;
+    background: transparent;
+    padding: 14px 0 8px 0;
+    display: block;
+    span {
+      height: 6px;
+      display: block;
+      border-top: 2px solid $color-red;
+      border-bottom: 2px solid $color-red;
+      position: relative;
+    }
+  }
+
+  .dock {
+    margin: 20px 8% 0;
+    .dock_name {
+      font-size: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .distance {
+      color: lighten($color-black, 15%);
+      font-size: 12px;
+      strong {
+        font-size: 20px;
+      }
+    }
+  }
+  .icon-bicycle {
+    color: $color-red;
+    font-size: 12px;
+  }
+  .icon-unlock-stroke {
+    color: $color-blu-light;
+    font-size: 12px;
+  }
+
+  button {
+    margin-top: 10px;
+    margin-left: 8%;
+    width: 84%;
+    height: $size-hearder-height;
+    border: 0;
+    border-radius: 3px;
+    vertical-align: middle;
+    text-align: left;
+    font-size: 17px;
+    line-height: 46px;
+    padding-left: 10px;
+    &>div {
+      display: inline-block;
+      width: 30px;
+      text-align: center;
+      strong {
+        font-size: 25px;
+      }
+    }
+    & span {
+      position: relative;
+      top: 6px;
+      padding-right: 5px;
+      font-size: 30px;
+    }
+    &.timing {
+      color: $color-white;
+      background-color: $color-timer-start;
+      position: relative;
+      &.active {
+        background-color: $color-timer-finish;
+      }
+      .sharefacebook, .sharetwitter {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: $color-facebook;
+        height: $size-hearder-height;
+        width: $size-hearder-height;
+        line-height: 52px;
+        padding: 0 8px;
+        vertical-align: middle;
+        border-radius: 0 3px 3px 0;
+        span {
+          padding: 0;
+        }
+        &.disabled {
+          background: lighten($color-black, 40%);
+        }
+        &.notconnected {
+          background: lighten($color-black, 20%);
+          color: lighten($color-black, 80%);
+        }
+      }
+      .twitter {
+        right: $size-hearder-height;
+        border-radius: 3px 0 0 3px;
+        background: $color-twitter;
+      }
+    }
+    &:first {
+      margin-top: 60px;
+    }
+  }
+
+}
+
+#landscape {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: $zindex-landscape;
+  display: none;
+  padding-top: 20px;
+  width: 100%;
+  height: 101%;
+  background: $color-black;
+  color: $color-white;
+  text-align: center;
+  font-size: 30px;
+  min-height: 400px;
+  h1 {
+    font-size: 30px;
+    span {
+      font-size: 50px;
+      display: block;
+    }
+  }
+}
+
+#timing {
+  margin-top: 5px;
+  font-size: 60px;
+  font-weight: 300;
+}

@@ -1,0 +1,44 @@
+@import "config";
+@import "iconfonts";
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto", "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
+  font-weight: 100;
+}
+
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+html.static {
+  background: none;
+}
+
+body {
+  margin:0;
+  padding:50px;
+  height:120%;
+  min-height: 500px;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+}
+
+html.static body {
+  color: black;
+  text-shadow: none;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: 300;
+}
+
+#phone {
+  float:right;
+}

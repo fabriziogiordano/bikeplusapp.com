@@ -1,0 +1,34 @@
+/*Sizes*/
+$size-hearder-height      : 48px;
+
+/*zIndex*/
+$zindex-header            : 100;
+$zindex-timer             : 100;
+$zindex-timerlist         : 100;
+$zindex-parseTime         : 100;
+
+
+$zindex-bookmarks         : 100;
+$zindex-bookmarkscontent  : $zindex-bookmarks - 1;
+$zindex-resetlocation     : $zindex-bookmarkscontent - 1;
+$zindex-dock              : 100;
+$zindex-dockclose         : 100;
+$zindex-landscape         : 100;
+$zindex-search            : $zindex-header + 10;
+$zindex-searchcontent     : $zindex-search;
+$zindex-menu              : $zindex-header + 5;
+$zindex-menulist          : $zindex-menu;
+
+
+/*Colors*/
+$color-white              : #FFFFFF;
+$color-black              : #000000;
+$color-red                : #CF2031;
+$color-blu-dark           : #013D71;
+$color-blu-light          : #2793DB;
+
+$color-facebook           : #3C5A99;
+$color-twitter            : #2CA9E1;
+
+$color-timer-start        : darken(#1D5200, 1%);
+$color-timer-finish       : darken($color-red, 5%);
