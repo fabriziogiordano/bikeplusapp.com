@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `stations` (
   `totalDocks` smallint(6) NOT NULL,
   `latitude` decimal(11,8) NOT NULL,
   `longitude` decimal(11,8) NOT NULL,
-  `statusValue` varchar(255) NOT NULL,
+  `statusValue` smallint(6) NOT NULL,
   `statusKey` smallint(6) DEFAULT NULL,
   `availableBikes` smallint(6) NOT NULL,
   `stAddress1` varchar(255) DEFAULT NULL,

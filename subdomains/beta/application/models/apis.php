@@ -21,7 +21,7 @@ class Apis extends CI_Model {
                      ->select('id, latitude, longitude, availableBikes, availableDocks, stationName')
                      ->from('stations'.$site)
                      ->where('parseTime', $parseTimeMax)
-                     ->where('statusValue', 'In Service')
+                     ->where('statusValue', 1)
                      //->where('availableBikes >', 0)
                      ->get();
 
