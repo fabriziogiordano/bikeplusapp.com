@@ -114,16 +114,16 @@ var BikePlus = (function(w,d,options){
     var zoom = map.getZoom();
     var bounds = map.getBounds();
 
-    for(var i=0,ln=Docks.stations.length; i < ln; i++) {
-      var latLng = new google.maps.LatLng(Docks.stations[i].la, Docks.stations[i].lo);
+    for(var i=0,ln=bikeplusoptions.data.stations.length; i < ln; i++) {
+      var latLng = new google.maps.LatLng(bikeplusoptions.data.stations[i].la, bikeplusoptions.data.stations[i].lo);
       if(bounds.contains(latLng)) {
         markersdata.push({
-          'id'     : Docks.stations[i].id,
-          'ad'     : Docks.stations[i].ad,
-          'ab'     : Docks.stations[i].ab,
-          'sn'     : Docks.stations[i].sn,
-          'la'     : Docks.stations[i].la,
-          'lo'     : Docks.stations[i].lo,
+          'id'     : bikeplusoptions.data.stations[i].id,
+          'ad'     : bikeplusoptions.data.stations[i].ad,
+          'ab'     : bikeplusoptions.data.stations[i].ab,
+          'sn'     : bikeplusoptions.data.stations[i].sn,
+          'la'     : bikeplusoptions.data.stations[i].la,
+          'lo'     : bikeplusoptions.data.stations[i].lo,
           'latLng' : latLng
         });
       }
@@ -274,7 +274,7 @@ var BikePlus = (function(w,d,options){
         break;
       }
       if(target.className.indexOf('timing') > -1) {
-        var dock = Docks.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
+        var dock = bikeplusoptions.data.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
 
         if(target.value === 'true') {
           clockHandler.stop({
@@ -376,7 +376,7 @@ var BikePlus = (function(w,d,options){
   }
 
   function bookmarkDock(target){
-    var dock = Docks.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
+    var dock = bikeplusoptions.datastations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
 
     if(localStorage["bookmarkDock"] === undefined) {
       localStorage["bookmarkDock"] = JSON.stringify([]);
@@ -437,16 +437,16 @@ var BikePlus = (function(w,d,options){
   }
 
   function getDocks() {
-    if(typeof w.Docks !== 'undefined' && (Date.now() - w.Docks.fetched < 60000*2) ){
-      $parseTime.innerHTML = w.Docks.parseTime;
+    if(typeof w.bikeplusoptions.data !== 'undefined' && (Date.now() - w.bikeplusoptions.data.fetched < 60000*2) ){
+      $parseTime.innerHTML = w.bikeplusoptions.data.parseTime;
       generateMarker();
       return;
     }
     promise.get('/api/latest').then(function(error, text/*, xhr*/) {
       if(error){ /*alert('Error ' + xhr.status);*/ return; }
-      w.Docks = JsonParse(text);
-      w.Docks.fetched = Date.now();
-      $parseTime.innerHTML = w.Docks.parseTime;
+      w.bikeplusoptions.data = JsonParse(text);
+      w.bikeplusoptions.data.fetched = Date.now();
+      $parseTime.innerHTML = w.bikeplusoptions.data.parseTime;
       generateMarker();
     });
   }
@@ -777,7 +777,7 @@ var BikePlus = (function(w,d,options){
 
     var i = currentBookmarks.length;
     while (i--) {
-      var d = Docks.stations.filter(function(el){return (el.id === currentBookmarks[i].id) ? true : false; })[0];
+      var d = bikeplusoptions.data.stations.filter(function(el){return (el.id === currentBookmarks[i].id) ? true : false; })[0];
       currentBookmarks[i]['ab'] = d['ab'];
       currentBookmarks[i]['ad'] = d['ad'];
       currentBookmarks[i].distance = getDistance(globalLatitude, globalLongitude, currentBookmarks[i].la, currentBookmarks[i].lo);
@@ -1173,7 +1173,7 @@ var BikePlus = (function(w,d,options){
 //        break;
 //      }
 //      if(target.className === 'dock') {
-//        var dock = Docks.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
+//        var dock = bikeplusoptions.datastations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
 //        console.log(dock);
 //        break;
 //      }
@@ -1195,24 +1195,24 @@ var BikePlus = (function(w,d,options){
 //
 //    function _nearestPoints(){
 //      nearDocks = [];
-//      for(var i=0,ln=Docks.stations.length; i < ln; i++) {
-//        var latLng = new google.maps.LatLng(Docks.stations[i].la, Docks.stations[i].lo);
+//      for(var i=0,ln=bikeplusoptions.datastations.length; i < ln; i++) {
+//        var latLng = new google.maps.LatLng(bikeplusoptions.datastations[i].la, bikeplusoptions.datastations[i].lo);
 //        var bounds = map.getBounds();
 //        if(bounds.contains(latLng)) {
-//          nearDocks.push({
-//            'id'     : Docks.stations[i]['id'],
-//            'ad'     : Docks.stations[i]['ad'],
-//            'ab'     : Docks.stations[i]['ab'],
-//            'sn'     : Docks.stations[i]['sn'],
-//            'la'     : Docks.stations[i]['la'],
-//            'lo'     : Docks.stations[i]['lo'],
+//          nearbikeplusoptions.datapush({
+//            'id'     : bikeplusoptions.datastations[i]['id'],
+//            'ad'     : bikeplusoptions.datastations[i]['ad'],
+//            'ab'     : bikeplusoptions.datastations[i]['ab'],
+//            'sn'     : bikeplusoptions.datastations[i]['sn'],
+//            'la'     : bikeplusoptions.datastations[i]['la'],
+//            'lo'     : bikeplusoptions.datastations[i]['lo'],
 //            'latLng' : latLng,
-//            'dist'   : _distance(Docks.stations[i].la, Docks.stations[i].lo, map.getCenter().lat(), map.getCenter().lng())
+//            'dist'   : _distance(bikeplusoptions.datastations[i].la, bikeplusoptions.datastations[i].lo, map.getCenter().lat(), map.getCenter().lng())
 //          });
 //        }
 //      }
-//      nearDocks.sort(function(a,b) {return (a.dist > b.dist) ? 1 : ((b.dist > a.dist) ? -1 : 0);} );
-//      return nearDocks.slice(0,10);
+//      nearbikeplusoptions.datasort(function(a,b) {return (a.dist > b.dist) ? 1 : ((b.dist > a.dist) ? -1 : 0);} );
+//      return nearbikeplusoptions.dataslice(0,10);
 //    }
 //
 //    function _distance(lat1,lon1,lat2,lon2) {

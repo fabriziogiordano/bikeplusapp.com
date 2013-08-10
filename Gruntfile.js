@@ -24,14 +24,14 @@ module.exports = function(grunt) {
       //  livereload: true
       //},
       js: {
-        files: ['assets/js/app.js'], //['**/*.js'],
+        files: ['subdomains/assets/js/app.js'], //['**/*.js'],
         tasks: ['uglify'],
         options: {
           spawn: false
         }
       },
       scss: {
-        files: ['assets/scss/*'], //['**/*.js'],
+        files: ['subdomains/assets/scss/*'], //['**/*.js'],
         tasks: ['compass'],
         options: {
           spawn: false
@@ -39,10 +39,11 @@ module.exports = function(grunt) {
       }
     },
     copy: {
-      boston: { files: [ { expand: true, src: ['subdomains/beta/**'], dest: 'subdomains/boston/' } ] },
-      dc:     { files: [ { expand: true, src: ['subdomains/beta/**'], dest: 'subdomains/dc/'     } ] },
-      milano: { files: [ { expand: true, src: ['subdomains/beta/**'], dest: 'subdomains/milano/' } ] },
-      nyc:    { files: [ { expand: true, src: ['subdomains/beta/**'], dest: 'subdomains/nyc/'    } ] }
+      boston: { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/boston/' } ] },
+      dc:     { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/dc/'     } ] },
+      mi:     { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/mi/'     } ] },
+      nyc:    { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/nyc/'    } ] },
+      beta:   { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/beta/'   } ] }
     }
   });
 

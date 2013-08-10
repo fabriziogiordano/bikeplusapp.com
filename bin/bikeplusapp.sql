@@ -17,16 +17,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `nycbikeplus`
+-- Database: `bikeplusapp`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stationBeanList`
+-- Table structure for table `stations`
 --
 
-CREATE TABLE IF NOT EXISTS `stationBeanList` (
+-- stationsdev
+-- stationsnyc
+CREATE TABLE IF NOT EXISTS `stations` (
   `parseTime` bigint(20) NOT NULL,
   `executionTime` bigint(20) NOT NULL,
   `id` char(6) NOT NULL,
@@ -52,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `stationBeanList` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
-CREATE TABLE IF NOT EXISTS `openGraph` (
+CREATE TABLE IF NOT EXISTS `opengraph` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `uuid` varchar(255) DEFAULT NULL,
