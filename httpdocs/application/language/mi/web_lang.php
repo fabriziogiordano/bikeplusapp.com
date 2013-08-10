@@ -1,0 +1,27 @@
+<?php
+$lang['site'] = 'mi';
+$lang['assets'] = '';
+$lang['head_title'] = 'Milano Bike Plus app';
+$lang['web_title'] = 'Milano Bike Plus app';
+$lang['web_summary'] = 'Il modo più semplice di essere aggiornati sulle bici di BIKEMI';
+$lang['web_url'] = 'http://mi.bikeplusapp.com';
+$lang['mobile_title'] = 'Milano Bike Plus app';
+$lang['mobile_city'] = 'Milano';
+$lang['mobile_loading'] = 'Loading...';
+$lang['mobile_cancel'] = 'Cancella';
+$lang['mobile_logout'] = 'Esci';
+$lang['mobile_loginwithfacebook'] = 'loggati con Facebook';
+$lang['mobile_logintemporarytext'] = 'Stiamo aggiungendo altre funzionalità. Continua a pedalare e stai con noi! <a href="http://twitter.com/bikeplusapp">@bikeplusapp</a>';
+$lang['mobile_dockdistance'] = 'distanza';
+$lang['mobile_dockdistanceunit'] = 'km';
+$lang['mobile_dockdistanceratio'] = '6371';
+$lang['mobile_historytitle'] = 'Storico <span>(corse minori di un minuto non sono in questa lista)</span>';
+$lang['mobile_bookmarkstitle'] = 'Favoriti';
+$lang['mobile_bookmarksnone'] = 'Non hai favoriti salvati. Aggiungi favoriti per sapere immediatamente quante bici e postazioni sono disponibili.';
+$lang['mobile_js_logout'] = 'Vuoi uscire?';
+$lang['mobile_js_ride_start'] = 'Inizia a pedalare';
+$lang['mobile_js_ride_starting'] = 'starting...';
+$lang['mobile_js_ride_finish'] = 'Finisci pedalata';
+$lang['mobile_js_bookmarks_added'] = 'aggiunto';
+$lang['mobile_js_global_lat'] = '45.4644613';
+$lang['mobile_js_global_lng'] = '9.1892213';

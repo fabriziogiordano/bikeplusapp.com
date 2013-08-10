@@ -1,18 +1,85 @@
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]>  <html class="no-js iem7"> <![endif]-->
-<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<title>BikePlus App</title>
-<meta name="description" content="">
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-<meta http-equiv="cleartype" content="on">
+<?php
+define('ENVIRONMENT', 'development');
+if (defined('ENVIRONMENT')) {
+	switch (ENVIRONMENT) {
+		case 'development':
+			error_reporting(E_ALL);
+		break;
 
-<link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900' rel='stylesheet' type='text/css'>
-</head>
-<body>
-<h1 style="font-family: Roboto; font-size:30px; text-align: center">Are you ready for the <span style="display:block; color:#CF2031">Bike Sharing Revolution!</span></h1>
-</body>
-</html>
+		case 'testing':
+		case 'production':
+			error_reporting(0);
+		break;
+
+		default:
+			exit('The application environment is not set correctly.');
+	}
+}
+
+$system_path = '../../system';
+$application_folder = 'application';
+
+
+/*
+ * -------------------------------------------------------------------
+ *  CUSTOM CONFIG VALUES
+ * -------------------------------------------------------------------
+ *
+ * The $assign_to_config array below will be passed dynamically to the
+ * config class when initialized. This allows you to set custom config
+ * items or override any default config values found in the config.php file.
+ * This can be handy as it permits you to share one application between
+ * multiple front controller files, with each file containing different
+ * config values.
+ *
+ * Un-comment the $assign_to_config array below to use this feature
+ *
+ */
+	// $assign_to_config['name_of_config_item'] = 'value of config item';
+
+
+// Set the current directory correctly for CLI requests
+if (defined('STDIN')) {
+	chdir(dirname(__FILE__));
+}
+
+if (realpath($system_path) !== FALSE) {
+	$system_path = realpath($system_path).'/';
+}
+
+// ensure there's a trailing slash
+$system_path = rtrim($system_path, '/').'/';
+
+// Is the system path correct?
+if (!is_dir($system_path)){
+	exit("Your system folder path does not appear to be set correctly. Please open the following file and correct this: ".pathinfo(__FILE__, PATHINFO_BASENAME));
+}
+
+define('SELF', pathinfo(__FILE__, PATHINFO_BASENAME));
+
+// The PHP file extension
+// this global constant is deprecated.
+define('EXT', '.php');
+
+// Path to the system folder
+define('BASEPATH', str_replace("\\", "/", $system_path));
+
+// Path to the front controller (this file)
+define('FCPATH', str_replace(SELF, '', __FILE__));
+
+// Name of the "system folder"
+define('SYSDIR', trim(strrchr(trim(BASEPATH, '/'), '/'), '/'));
+
+
+// The path to the "application" folder
+if (is_dir($application_folder)){
+	define('APPPATH', $application_folder.'/');
+}
+else {
+	if ( ! is_dir(BASEPATH.$application_folder.'/')) {
+		exit("Your application folder path does not appear to be set correctly. Please open the following file and correct this: ".SELF);
+	}
+	define('APPPATH', BASEPATH.$application_folder.'/');
+}
+
+require_once BASEPATH.'core/CodeIgniter.php';
