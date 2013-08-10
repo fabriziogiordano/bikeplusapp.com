@@ -22,8 +22,8 @@ if($_SERVER['SERVER_NAME'] == 'dev.bikeplusapp.com') {
 }
 else {
 	$db['default']['hostname'] = 'localhost';
-	$db['default']['username'] = '';
-	$db['default']['password'] = '';
+	$db['default']['username'] = 'bikeplus';
+	$db['default']['password'] = '6MPjrj4x89';
 	$db['default']['database'] = 'bikeplusapp';
 	$db['default']['dbdriver'] = 'mysqli';
 	$db['default']['dbprefix'] = '';
