@@ -24,6 +24,11 @@ switch ($_SERVER['SERVER_NAME']) {
 	case 'nyc.bikeplusapp.com':
 		$config['language']          = 'nyc';
 		break;
+	case 'bikeplusapp.com':
+	case 'www.bikeplusapp.com':
+	case 'dev.www.bikeplusapp.com':
+		$config['language']          = 'english';
+		break;
 	default:
 		die('No config loaded');
 		break;

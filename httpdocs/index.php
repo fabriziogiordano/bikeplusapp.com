@@ -16,7 +16,7 @@ if (defined('ENVIRONMENT')) {
 	}
 }
 
-$system_path = '../../system';
+$system_path = '../system';
 $application_folder = 'application';
 
 
