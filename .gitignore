@@ -2,4 +2,5 @@ _old
 .sass-cache
 php.php
 application/logs
+logs/fetch
 node_modules

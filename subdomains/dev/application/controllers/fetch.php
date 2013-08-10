@@ -8,6 +8,7 @@ class Fetch extends CI_Controller {
     $this->db->save_queries = FALSE;
     $this->_parsed = null;
     $this->parseTime = time();
+    $this->logFile = APPPATH.'../../../logs/fetch/fetch.txt';
   }
 
   public function index() {
@@ -61,10 +62,10 @@ class Fetch extends CI_Controller {
       $this->db->insert_batch($table, $data);
       $this->db->trans_complete();
 
-      echo 'NYC - done';
+      //file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: NYC - done', FILE_APPEND | LOCK_EX);
     }
     else {
-      echo 'NYC - Error';
+      file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: NYC - ERROR', FILE_APPEND | LOCK_EX);
     }
   }
 
@@ -126,10 +127,10 @@ class Fetch extends CI_Controller {
       $this->db->insert_batch($table, $data);
       $this->db->trans_complete();
 
-      echo 'MI - done';
+      //file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: Milano - done', FILE_APPEND | LOCK_EX);
     }
     else {
-      echo 'MI - Error';
+      file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: Milano - ERROR', FILE_APPEND | LOCK_EX);
     }
   }
 
