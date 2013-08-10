@@ -1,5 +1,5 @@
 Key,beta,boston,dc,dev,mi,nyc
-site,beta,boston,dc,dev,mi,nyc
+site,nyc,boston,dc,dev,mi,nyc
 assets,,,,dev.,,
 head_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app
 web_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app
@@ -23,5 +23,5 @@ mobile_js_ride_start,start ride,start ride,start ride,start ride,Inizia a pedala
 mobile_js_ride_starting,starting...,starting...,starting...,starting...,starting...,starting...
 mobile_js_ride_finish,finish ride,finish ride,finish ride,finish ride,Finisci pedalata,finish ride
 mobile_js_bookmarks_added,added,added,added,added,aggiunto,added
-mobile_js_global_lat,40.7266119,40.7266119,40.7266119,40.7266119,45.4644613,40.7266119
-mobile_js_global_lng,-73.9930061,-73.9930061,-73.9930061,-73.9930061,9.1892213,-73.9930061
+mobile_js_global_lat,40.7266119,42.3606881,38.8935965,40.7266119,45.4644613,40.7266119
+mobile_js_global_lng,-73.9930061,-71.0587449,-77.014576,-73.9930061,9.1892213,-73.9930061

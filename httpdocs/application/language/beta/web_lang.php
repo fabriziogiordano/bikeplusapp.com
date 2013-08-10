@@ -1,5 +1,5 @@
 <?php
-$lang['site'] = 'beta';
+$lang['site'] = 'nyc';
 $lang['assets'] = '';
 $lang['head_title'] = 'BETA (NYC) Bike Plus app';
 $lang['web_title'] = 'BETA (NYC) Bike Plus app';

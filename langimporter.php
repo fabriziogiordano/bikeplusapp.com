@@ -1,5 +1,5 @@
 <?php
-include 'clicolor.php';
+include 'bin/clicolor.php';
 $colors = new Colors();
 echo $colors->getColoredString("Publishing: $lang", "green", "light_green") . "\n";
 
@@ -9,8 +9,8 @@ $row = -1;
 $lang = array();
 $translations = array();
 
-file_put_contents('langimporter.txt', file_get_contents($csv));
-if(($handle = fopen('langimporter.txt', 'r')) !== FALSE) {
+file_put_contents('bin/langimporter.txt', file_get_contents($csv));
+if(($handle = fopen('bin/langimporter.txt', 'r')) !== FALSE) {
   while(($data = fgetcsv($handle, 10000, ",")) !== FALSE) {
     $row++;
     $num = count($data);
@@ -18,7 +18,7 @@ if(($handle = fopen('langimporter.txt', 'r')) !== FALSE) {
     if($row == 0) {
       for($c = 0; $c < $num; $c++) {
         if($c == 0) continue;
-        $lang[$c]['handle'] = fopen('../subdomains/dev/application/language/'.$data[$c].'/web_lang.php', 'w');
+        $lang[$c]['handle'] = fopen('subdomains/dev/application/language/'.$data[$c].'/web_lang.php', 'w');
         fwrite($lang[$c]['handle'], "<?php\n");
       }
       continue;
