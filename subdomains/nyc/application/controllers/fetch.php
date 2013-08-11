@@ -19,7 +19,7 @@ class Fetch extends CI_Controller {
   public function nyc($table = '') {
     //Fetch data
     $url  = 'http://citibikenyc.com/stations/json';
-    $table = (empty($table)) ? 'stationsnyc' : $table;
+    $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
     $html = $this->fetch($url);
     $json = json_decode($html, true);
 
@@ -28,7 +28,6 @@ class Fetch extends CI_Controller {
       $this->db->trans_start();
 
       //Trucate DB
-      $this->db->empty_table($table);
       $this->db->truncate($table);
 
       //Insert data in DB
@@ -76,7 +75,7 @@ class Fetch extends CI_Controller {
     //Fetch data
     $url  = 'http://www.bikemi.com/localizaciones/localizaciones.php';
     $html = $this->fetch($url);
-    $table = (empty($table)) ? 'stationsmi' : $table;
+    $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
 
     preg_match('|<\?xml(.*)</kml>|ismU', $html, $matches);
 
@@ -86,7 +85,6 @@ class Fetch extends CI_Controller {
       $this->db->trans_start();
 
       //Trucate DB
-      $this->db->empty_table($table);
       $this->db->truncate($table);
 
       //Insert data in DB
@@ -141,7 +139,7 @@ class Fetch extends CI_Controller {
     //Fetch data
     $url  = 'http://www.capitalbikeshare.com/data/stations/bikeStations.xml';
     $html = $this->fetch($url);
-    $table = (empty($table)) ? 'stationsdc' : $table;
+    $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
 
     $xml = simplexml_load_string($html, 'SimpleXMLElement', LIBXML_NOCDATA);
 
@@ -149,7 +147,6 @@ class Fetch extends CI_Controller {
       $this->db->trans_start();
 
       //Trucate DB
-      $this->db->empty_table($table);
       $this->db->truncate($table);
 
       //Insert data in DB
@@ -197,7 +194,7 @@ class Fetch extends CI_Controller {
     //Fetch data
     $url  = 'http://www.thehubway.com/data/stations/bikeStations.xml';
     $html = $this->fetch($url);
-    $table = (empty($table)) ? 'stationsboston' : $table;
+    $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
 
     $xml = simplexml_load_string($html, 'SimpleXMLElement', LIBXML_NOCDATA);
 
@@ -205,7 +202,6 @@ class Fetch extends CI_Controller {
       $this->db->trans_start();
 
       //Trucate DB
-      $this->db->empty_table($table);
       $this->db->truncate($table);
 
       //Insert data in DB
@@ -249,7 +245,62 @@ class Fetch extends CI_Controller {
     }
   }
 
-  public function dev($site = 'nyc') {
+  public function chicago($table = '') {
+    //Fetch data
+    $url  = 'http://www.divvybikes.com/stations/json/';
+    $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
+    $html = $this->fetch($url);
+    $json = json_decode($html, true);
+
+    //Check if data are valid
+    if(is_array($json) && !empty($json['executionTime']) && is_array($json['stationBeanList']) ) {
+      $this->db->trans_start();
+
+      //Trucate DB
+      $this->db->truncate($table);
+
+      //Insert data in DB
+      $executionTime = human_to_unix($json['executionTime']) + 14400;
+      $data = array();
+
+      foreach ($json['stationBeanList'] as $value) {
+        if($value['statusValue'] == 'In Service') {
+          $value['statusValue'] = 1;
+        }
+        $data[] = array(
+          'parseTime'             => $this->parseTime,
+          'executionTime'         => $executionTime,
+          'id'                    => $value['id'],
+          'stationName'           => $value['stationName'],
+          'availableDocks'        => $value['availableDocks'],
+          'totalDocks'            => $value['totalDocks'],
+          'latitude'              => $value['latitude'],
+          'longitude'             => $value['longitude'],
+          'statusValue'           => $value['statusValue'],
+          'statusKey'             => $value['statusKey'],
+          'availableBikes'        => $value['availableBikes'],
+          'stAddress1'            => $value['stAddress1'],
+          'stAddress2'            => $value['stAddress2'],
+          'city'                  => $value['city'],
+          'postalCode'            => $value['postalCode'],
+          'location'              => $value['location'],
+          'altitude'              => $value['altitude'],
+          'testStation'           => $value['testStation'],
+          'lastCommunicationTime' => $value['lastCommunicationTime'],
+          'landMark'              => $value['landMark']
+        );
+      }
+      $this->db->insert_batch($table, $data);
+      $this->db->trans_complete();
+
+      file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: CHICAGO       - done'."\n", FILE_APPEND | LOCK_EX);
+    }
+    else {
+      file_put_contents($this->logFile, date("Y-m-d H:i:s").' :: CHICAGO       - ERROR'."\n", FILE_APPEND | LOCK_EX);
+    }
+  }
+
+  public function dev($site = 'chicago') {
     $this->$site('stationsdev');
   }
 

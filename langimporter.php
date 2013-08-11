@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 include 'bin/clicolor.php';
 $colors = new Colors();
