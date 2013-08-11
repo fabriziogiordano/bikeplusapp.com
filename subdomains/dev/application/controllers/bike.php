@@ -16,9 +16,9 @@ class Bike extends CI_Controller {
     ));
 
     $template['meta'] = array(
-      'app_id' => '177446295767523',
+      'app_id' => $this->config->item('facebook_appid'),
       'type' => 'fitness.course',
-      'url' => 'http://nycbikeplus.com/bike/ride/'.$uuid,
+      'url' => 'http://nyc.bikeplusapp.com/bike/ride/'.$uuid,
       'title' => 'Biking in New York City!',
       'description' => 'I am riding ‪#‎CityBikeNYC‬ in New York City! Send me cheers along the way by liking or commenting on this post.',
       'image' => 'http://nycbikeplus.com/assets/img/logos/logo.opengraph.png?v=1',

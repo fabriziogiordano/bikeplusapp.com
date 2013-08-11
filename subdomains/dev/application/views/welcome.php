@@ -45,22 +45,53 @@
 
 <script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/vendor/concatenate.doT.promise.moment.min.js?v=<?= $assets['js'] ?>"></script>
 <script>
-bikeplusoptions = {};
-bikeplusoptions.lang     = {
-  mobile_js_logout     : '<?php echo lang('mobile_js_logout'); ?>',
-  mobile_js_ride_start : '<?php echo lang('mobile_js_ride_start'); ?>',
-  mobile_js_ride_starting : '<?php echo lang('mobile_js_ride_starting'); ?>',
-  mobile_js_ride_finish : '<?php echo lang('mobile_js_ride_finish'); ?>',
-  mobile_dockdistanceratio : <?php echo lang('mobile_dockdistanceratio'); ?>,
-  mobile_js_bookmarks_added : '<?php echo lang('mobile_js_bookmarks_added'); ?>',
-  mobile_js_global_lat : <?php echo lang('mobile_js_global_lat'); ?>,
-  mobile_js_global_lng : <?php echo lang('mobile_js_global_lng'); ?>,
+bikeplusoptions = {
+  lang : {
+    mobile_js_logout     : '<?php echo lang('mobile_js_logout'); ?>',
+    mobile_js_ride_start : '<?php echo lang('mobile_js_ride_start'); ?>',
+    mobile_js_ride_starting : '<?php echo lang('mobile_js_ride_starting'); ?>',
+    mobile_js_ride_finish : '<?php echo lang('mobile_js_ride_finish'); ?>',
+    mobile_dockdistanceratio : <?php echo lang('mobile_dockdistanceratio'); ?>,
+    mobile_js_bookmarks_added : '<?php echo lang('mobile_js_bookmarks_added'); ?>',
+    mobile_js_global_lat : <?php echo lang('mobile_js_global_lat'); ?>,
+    mobile_js_global_lng : <?php echo lang('mobile_js_global_lng'); ?>,
+    mobile_js_global_lng : <?php echo lang('mobile_js_global_lng'); ?>,
 
+    tmpl : {
+      bookmarks : {
+        title     : '<?php echo lang('mobile_bookmarkstitle'); ?>',
+        none      : '<?php echo lang('mobile_bookmarksnone'); ?>',
+        distance  : '<?php echo lang('mobile_dockdistance'); ?>',
+        unit      : '<?php echo lang('mobile_dockdistanceunit'); ?>'
+      },
+      dock : {
+        distance  : '<?php echo lang('mobile_dockdistance'); ?>',
+        unit      : '<?php echo lang('mobile_dockdistanceunit'); ?>'
+      },
+      menulist : {
+        logout    : '<?php echo lang('mobile_logout'); ?>',
+        connectfb : '<?php echo lang('mobile_loginwithfacebook'); ?>',
+        temp      : '<?php echo lang('mobile_logintemporarytext'); ?>',
+        current   : '<?php echo lang('site'); ?>',
+        cities    : [
+          {id: 'boston'  , label : 'Boston'},
+          {id: 'chicago' , label : 'Chicago'},
+          {id: 'dc'      , label : 'Washington DC'},
+          {id: 'mi'      , label : 'Milano'},
+          {id: 'nyc'     , label : 'New York City'}
+        ]
+      },
+      timerlist : {
+        title    : '<?php echo lang('mobile_historytitle'); ?>',
+
+      }
+    }
+  },
+  shareurl : '<?php echo lang('site'); ?>'+'.bikeplusapp.com',
+  fbappid  : '<?php echo $this->config->item('facebook_appid'); ?>'
 };
-bikeplusoptions.shareurl = '<?php echo lang('site'); ?>'+'.bikeplusapp.com';
-bikeplusoptions.fbappid  = '<?php echo $this->config->item('facebook_appid'); ?>';
-bikeplusoptions.data            = <?php echo $json; ?>;
-bikeplusoptions.data.fetched    = Date.now();
+bikeplusoptions.data         = <?php echo $json; ?>;
+bikeplusoptions.data.fetched = Date.now();
 </script>
 <?php if($assets['path']) : ?>
 <script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/tmpl.js?v=<?= $assets['js'] ?>"></script>

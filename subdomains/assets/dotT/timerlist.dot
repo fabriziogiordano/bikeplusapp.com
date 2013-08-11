@@ -1,13 +1,13 @@
-  {{? it.history }}
-  <h2><?php echo lang('mobile_historytitle');?></span></h2>
-  <ul>
-  {{~it.history :value:index}}
-    <li class="{{=value.class}}" data-timer-start-la="{{=value.start.la}}" data-timer-start-lo="{{=value.start.lo}}"  data-timer-stop-la="{{=value.stop.la}}" data-timer-stop-lo="{{=value.stop.lo}}">
-      <span class="duration">{{=value.duration}}</span>
-      <span class="icon-stopwatch"></span>
-      <span class="start">{{=value.start.time}}</span>
-      <span class="stop">{{=value.stop.time}}</span>
-    </li>
-  {{~}}
-  </ul>
-  {{?}}
+{{? it.data.history }}
+<h2>{{=it.lang.title}}</span></h2>
+<ul>
+{{~it.data.history :value:index}}
+  <li class="{{=value.class}}" data-timer-start-la="{{=value.start.la}}" data-timer-start-lo="{{=value.start.lo}}"  data-timer-stop-la="{{=value.stop.la}}" data-timer-stop-lo="{{=value.stop.lo}}">
+    <span class="duration">{{=value.duration}}</span>
+    <span class="icon-stopwatch"></span>
+    <span class="start">{{=value.start.time}}</span>
+    <span class="stop">{{=value.stop.time}}</span>
+  </li>
+{{~}}
+</ul>
+{{?}}

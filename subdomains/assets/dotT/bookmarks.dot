@@ -1,16 +1,16 @@
-<h2><?php echo lang('mobile_bookmarkstitle');?></h2>
-{{? it.length }}
+<h2>{{=it.lang.title }}</h2>
+{{? it.data.length }}
   <ul>
-  {{~it :dock:index}}
+  {{~it.data :dock:index}}
     <li {{?index%2}}class="zebra"{{?}} data-dockid="{{=dock.id}}" data-dockla="{{=dock.la}}" data-docklo="{{=dock.lo}}">
       <span class="icon-trashcan"></span>
       <p><span class="icon-location"></span>{{=dock.sn}}</p>
       <span class='available_bikes'><span class="icon-bicycle"></span> {{=dock.ab}}</span>
       <span class='available_docks'><span class="icon-unlock-stroke"></span> {{=dock.ad}}</span>
-      <span class='distance'><?php echo lang('mobile_dockdistance');?> <strong>{{=dock.distance}}</strong> <?php echo lang('mobile_dockdistanceunit');?></span>
+      <span class='distance'>{{=it.lang.distance }} <strong>{{=dock.distance}}</strong> {{=it.lang.unit }}</span>
     </li>
   {{~}}
   </ul>
 {{??}}
-  <p><?php echo lang('mobile_bookmarksnone');?></p>
+  <p><{{=it.lang.none }}</p>
 {{?}}

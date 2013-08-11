@@ -1,7 +1,7 @@
 <ul>
   {{? it.user }}
   <li>
-    <span class="facebook_logout"><?php echo lang('mobile_logout');?></span>
+    <span class="facebook_logout">{{=it.lang.logout}}</span>
     <span>{{=it.user.first_name}}</span>
     <!--<strong>{{=it.rides}}</strong> Rides  <strong>{{=it.miles}}</strong> Miles-->
   </li>
@@ -14,8 +14,15 @@
   </li>
   {{??}}
   <li>
-    <button class='facebook'><span class="icon-facebook"></span> <?php echo lang('mobile_loginwithfacebook');?></button>
+    <button class='facebook'><span class="icon-facebook"></span> {{=it.lang.connectfb}}</button>
   </li>
   {{?}}
-  <li><?php echo lang('mobile_logintemporarytext');?></li>
+  <li>{{=it.lang.temp}}</li>
+
+  {{~it.lang.cities :value:index}}
+    {{? it.lang.current != value.id }}
+    <li class="cities"><a href="\\/\\/{{=value.id}}.bikeplusapp.com">{{=value.label}}</a></li>
+    {{?}}
+  {{~}}
+
 </ul>

@@ -241,7 +241,7 @@ var BikePlus = (function(w,d){
             oldcenter = map.getCenter();
             markersdata[i].distance = getDistance(globalLatitude, globalLongitude, markersdata[i].la, markersdata[i].lo);
 
-            $dock.innerHTML = bikeplusoptions.tmpl.dock(markersdata[i]);
+            $dock.innerHTML = bikeplusoptions.tmpl.dock({data: markersdata[i], lang: bikeplusoptions.lang.tmpl.dock});
             $dock.style.top = wHeight - 100 - 48 + 'px';
 
             $mapbikes.style.height = wHeight - 100 - 48 + 20 + "px";
@@ -726,7 +726,7 @@ var BikePlus = (function(w,d){
           list.facebook = '';
         }
         DEBUG && console.log(list);
-        $timerlist.innerHTML = bikeplusoptions.tmpl.timerlist(list);
+        $timerlist.innerHTML = bikeplusoptions.tmpl.timerlist({data: list, lang: bikeplusoptions.lang.tmpl.timerlist});
         break;
       }
 
@@ -764,23 +764,28 @@ var BikePlus = (function(w,d){
   function bookmarksHandler(e){
     e.preventDefault();
     e.stopPropagation();
-    var currentBookmarks;
 
-    if(localStorage.bookmarkDock === undefined) {
-      currentBookmarks = [];
-    }
-    else {
-      currentBookmarks = jsonParse(localStorage.bookmarkDock);
+    if($bookmarks.classList.contains("active")) {
+      $bookmarks.classList.toggle("active");
+      return;
     }
 
-    var i = currentBookmarks.length;
+    var currentBookmarks = {};
+
+    if(localStorage.bookmarkDock !== undefined) {
+      currentBookmarks.data = jsonParse(localStorage.bookmarkDock);
+    }
+
+    var i = currentBookmarks.data.length;
     while (i--) {
-      var d = bikeplusoptions.data.stations.filter(function(el){return (el.id === currentBookmarks[i].id) ? true : false; })[0];
-      currentBookmarks[i].ab = d.ab;
-      currentBookmarks[i].ad = d.ad;
-      currentBookmarks[i].distance = getDistance(globalLatitude, globalLongitude, currentBookmarks[i].la, currentBookmarks[i].lo);
+      var d = bikeplusoptions.data.stations.filter(function(el){return (el.id === currentBookmarks.data[i].id) ? true : false; })[0];
+      currentBookmarks.data[i].ab = d.ab;
+      currentBookmarks.data[i].ad = d.ad;
+      currentBookmarks.data[i].distance = getDistance(globalLatitude, globalLongitude, currentBookmarks.data[i].la, currentBookmarks.data[i].lo);
     }
-
+    currentBookmarks.lang = bikeplusoptions.lang.tmpl.bookmarks;
+    DEBUG && console.log(currentBookmarks);
+    DEBUG && console.log(bikeplusoptions.tmpl.bookmarks(currentBookmarks));
     $bookmarkscontent.innerHTML = bikeplusoptions.tmpl.bookmarks(currentBookmarks);
     $bookmarks.classList.toggle("active");
 
@@ -942,6 +947,7 @@ var BikePlus = (function(w,d){
       e.preventDefault();
       e.stopPropagation();
       var target = e.target;
+      DEBUG && console.log('$menulist.addEventListener', e);
       while(target) {
         if(target.className === 'facebook') {
           FB.login(menuCallback, {scope: 'publish_actions'});
@@ -952,9 +958,14 @@ var BikePlus = (function(w,d){
           if( r === true) {
             FB.logout(function(/*response*/) {
               facebookConnected = false;
-              $menulist.innerHTML = bikeplusoptions.tmpl.menulist({});
+              $menulist.innerHTML = bikeplusoptions.tmpl.menulist({lang: bikeplusoptions.lang.tmpl.menulist});
             });
           }
+          break;
+        }
+        if(target.className === 'cities') {
+          DEBUG && console.log(target.querySelector('a').href);
+          w.location.href = target.querySelector('a').href;
           break;
         }
         target = target.parentNode;
@@ -980,14 +991,14 @@ var BikePlus = (function(w,d){
       }
 
       FB.api('/me?fields=id,first_name,name,picture', function(user) {
-        $menulist.innerHTML = bikeplusoptions.tmpl.menulist(user);
+        $menulist.innerHTML = bikeplusoptions.tmpl.menulist({ data: user, lang: bikeplusoptions.lang.tmpl.menulist});
         FB.api(
           {
             method: 'fql.query',
             query: 'SELECT uid, name, pic_square FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() ) AND is_app_user = 1'
           },
           function(response) {
-            $menulist.innerHTML = bikeplusoptions.tmpl.menulist({'user': user, 'friends' : response});
+            $menulist.innerHTML = bikeplusoptions.tmpl.menulist({'user': user, 'friends' : response, lang: bikeplusoptions.lang.tmpl.menulist});
             $menu.querySelector('img').src = user.picture.data.url;
             //DEBUG && console.log(user);
             //DEBUG && console.log(response);
@@ -995,7 +1006,7 @@ var BikePlus = (function(w,d){
         );
       });
     } else {
-      $menulist.innerHTML = bikeplusoptions.tmpl.menulist({});
+      $menulist.innerHTML = bikeplusoptions.tmpl.menulist({lang: bikeplusoptions.lang.tmpl.menulist});
     }
   }
 

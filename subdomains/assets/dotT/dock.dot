@@ -1,16 +1,16 @@
-<div data-dockid='{{=it.id}}' class="setbookmark"><strong></strong><span class="icon-bookmark {{? it.bookmarksAdded}}added{{?}}"></span></div>
+<div data-dockid='{{=it.data.id}}' class="setbookmark"><strong></strong><span class="icon-bookmark {{? it.data.bookmarksAdded}}added{{?}}"></span></div>
 <div class='close'><span></span></div>
 <div class='dock'>
-  <div class="dock_name">{{=it.sn}}</div>
-  <span class="icon-bicycle"></span> {{=it.ab}}
-  <span class="icon-unlock-stroke"></span> {{=it.ad}}
-  {{? it.distance }}<span class='distance'><?php echo lang('mobile_dockdistance');?> <strong>{{=it.distance}}</strong> <?php echo lang('mobile_dockdistanceunit');?></span>{{?}}
+  <div class="dock_name">{{=it.data.sn}}</div>
+  <span class="icon-bicycle"></span> {{=it.data.ab}}
+  <span class="icon-unlock-stroke"></span> {{=it.data.ad}}
+  {{? it.data.distance }}<span class='distance'> {{=it.lang.distance}} <strong>{{=it.data.distance}}</strong> {{=it.lang.unit}}</span>{{?}}
 </div>
 
-<button data-dockid='{{=it.id}}' value='{{=it.timer}}' class='timing {{? it.timer}}active{{?}}'>
+<button data-dockid='{{=it.data.id}}' value='{{=it.data.timer}}' class='timing {{? it.data.timer}}active{{?}}'>
   <div class="countdown"><span class="icon-stopwatch"></span></div>
-  <strong>{{=it.timerlabel}}</strong>
+  <strong>{{=it.data.timerlabel}}</strong>
 
   <!--<div class="sharetwitter disabled"><span class="icon-twitter"></span></div>-->
-  <div class="sharefacebook {{=it.facebook}}"><span class="icon-facebook"></span></div>
+  <div class="sharefacebook {{=it.data.facebook}}"><span class="icon-facebook"></span></div>
 </button>
