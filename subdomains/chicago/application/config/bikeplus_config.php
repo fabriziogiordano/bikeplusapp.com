@@ -1,9 +1,9 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-$config['google_map_key']           = 'AIzaSyBFATtfUwn9atJCxlIzp_b8s9r4FCMUSj8';
-$config['facebook_appid']           = '693123570705167';
-$config['google_analytics_ua']      = 'UA-137286-31';
-$config['google_analytics_domain']  = 'nycbikeplus.com';
+$config['google_map_key']          = 'AIzaSyBFATtfUwn9atJCxlIzp_b8s9r4FCMUSj8';
+$config['facebook_appid']          = '693123570705167';
+$config['google_analytics_ua']     = 'UA-137286-31';
+$config['google_analytics_domain'] = 'nycbikeplus.com';
 
 switch ($_SERVER['SERVER_NAME']) {
 	case 'beta.bikeplusapp.com':
