@@ -43,83 +43,6 @@
 </div>
 <div id="fb-root"></div>
 
-<script type="text/x-dot-template" id="menulisttmpl">
-  <ul>
-    {{? it.user }}
-    <li>
-      <span class="facebook_logout"><?php echo lang('mobile_logout');?></span>
-      <span>{{=it.user.first_name}}</span>
-      <!--<strong>{{=it.rides}}</strong> Rides  <strong>{{=it.miles}}</strong> Miles-->
-    </li>
-    <li>
-      {{? it.friends }}
-        {{~it.friends :value:index}}
-          <span><img src='{{=value.pic_square}}'></span> <!-- {{=value.name}} -->
-        {{~}}
-      {{?}}
-    </li>
-    {{??}}
-    <li>
-      <button class='facebook'><span class="icon-facebook"></span> <?php echo lang('mobile_loginwithfacebook');?></button>
-    </li>
-    {{?}}
-    <li><?php echo lang('mobile_logintemporarytext');?></li>
-  </ul>
-</script>
-
-<script type="text/x-dot-template" id="docktmpl">
-  <div data-dockid='{{=it.id}}' class="setbookmark"><strong></strong><span class="icon-bookmark {{? it.bookmarksAdded}}added{{?}}"></span></div>
-  <div class='close'><span></span></div>
-  <div class='dock'>
-    <div class="dock_name">{{=it.sn}}</div>
-    <span class="icon-bicycle"></span> {{=it.ab}}
-    <span class="icon-unlock-stroke"></span> {{=it.ad}}
-    {{? it.distance }}<span class='distance'><?php echo lang('mobile_dockdistance');?> <strong>{{=it.distance}}</strong> <?php echo lang('mobile_dockdistanceunit');?></span>{{?}}
-  </div>
-
-  <button data-dockid='{{=it.id}}' value='{{=it.timer}}' class='timing {{? it.timer}}active{{?}}'>
-    <div class="countdown"><span class="icon-stopwatch"></span></div>
-    <strong>{{=it.timerlabel}}</strong>
-
-    <!--<div class="sharetwitter disabled"><span class="icon-twitter"></span></div>-->
-    <div class="sharefacebook {{=it.facebook}}"><span class="icon-facebook"></span></div>
-  </button>
-</script>
-
-<script type="text/x-dot-template" id="timerlisttmpl">
-  {{? it.history }}
-  <h2><?php echo lang('mobile_historytitle');?></span></h2>
-  <ul>
-  {{~it.history :value:index}}
-    <li class="{{=value.class}}" data-timer-start-la="{{=value.start.la}}" data-timer-start-lo="{{=value.start.lo}}"  data-timer-stop-la="{{=value.stop.la}}" data-timer-stop-lo="{{=value.stop.lo}}">
-      <span class="duration">{{=value.duration}}</span>
-      <span class="icon-stopwatch"></span>
-      <span class="start">{{=value.start.time}}</span>
-      <span class="stop">{{=value.stop.time}}</span>
-    </li>
-  {{~}}
-  </ul>
-  {{?}}
-</script>
-
-<script type="text/x-dot-template" id="bookmarkstmpl">
-<h2><?php echo lang('mobile_bookmarkstitle');?></h2>
-{{? it.length }}
-  <ul>
-  {{~it :dock:index}}
-    <li {{?index%2}}class="zebra"{{?}} data-dockid="{{=dock.id}}" data-dockla="{{=dock.la}}" data-docklo="{{=dock.lo}}">
-      <span class="icon-trashcan"></span>
-      <p><span class="icon-location"></span>{{=dock.sn}}</p>
-      <span class='available_bikes'><span class="icon-bicycle"></span> {{=dock.ab}}</span>
-      <span class='available_docks'><span class="icon-unlock-stroke"></span> {{=dock.ad}}</span>
-      <span class='distance'><?php echo lang('mobile_dockdistance');?> <strong>{{=dock.distance}}</strong> <?php echo lang('mobile_dockdistanceunit');?></span>
-    </li>
-  {{~}}
-  </ul>
-{{??}}
-  <p><?php echo lang('mobile_bookmarksnone');?></p>
-{{?}}
-</script>
 <script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/vendor/concatenate.doT.promise.moment.min.js?v=<?= $assets['js'] ?>"></script>
 <script>
 bikeplusoptions = {};
@@ -134,12 +57,17 @@ bikeplusoptions.lang     = {
   mobile_js_global_lng : <?php echo lang('mobile_js_global_lng'); ?>,
 
 };
-bikeplusoptions.shareurl = '<?php echo lang('web_url'); ?>';
+bikeplusoptions.shareurl = '<?php echo lang('site'); ?>'+'.bikeplusapp.com';
 bikeplusoptions.fbappid  = '<?php echo $this->config->item('facebook_appid'); ?>';
 bikeplusoptions.data            = <?php echo $json; ?>;
 bikeplusoptions.data.fetched    = Date.now();
 </script>
-<script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/app.<?php if(!$assets['path']) echo 'min.'; ?>js?v=<?= $assets['js'] ?>"></script>
+<?php if($assets['path']) : ?>
+<script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/tmpl.js?v=<?= $assets['js'] ?>"></script>
+<script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/app.js?v=<?= $assets['js'] ?>"></script>
+<?php else: ?>
+<script src="//<?= $assets['path'] ?>assets.bikeplusapp.com/js/app.min.js?v=<?= $assets['js'] ?>"></script>
+<?php endif ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $this->config->item('google_map_key'); ?>&v=3.exp&sensor=false&callback=BikePlus.mapInit&libraries=places"></script>
 
 <script>
