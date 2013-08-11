@@ -1,0 +1,21 @@
+<ul>
+  {{? it.user }}
+  <li>
+    <span class="facebook_logout"><?php echo lang('mobile_logout');?></span>
+    <span>{{=it.user.first_name}}</span>
+    <!--<strong>{{=it.rides}}</strong> Rides  <strong>{{=it.miles}}</strong> Miles-->
+  </li>
+  <li>
+    {{? it.friends }}
+      {{~it.friends :value:index}}
+        <span><img src='{{=value.pic_square}}'></span> <!-- {{=value.name}} -->
+      {{~}}
+    {{?}}
+  </li>
+  {{??}}
+  <li>
+    <button class='facebook'><span class="icon-facebook"></span> <?php echo lang('mobile_loginwithfacebook');?></button>
+  </li>
+  {{?}}
+  <li><?php echo lang('mobile_logintemporarytext');?></li>
+</ul>

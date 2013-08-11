@@ -1,4 +1,6 @@
-var BikePlus = (function(w,d,options){
+if (typeof DEBUG === 'undefined') DEBUG = true;
+
+var BikePlus = (function(w,d){
 
   var map,
       currentPositionMarker,
@@ -9,9 +11,9 @@ var BikePlus = (function(w,d,options){
       dragstart,
       docksdebounce,
       oldcenter,
-      globalLatitude = options.lang.mobile_js_global_lat,
-      globalLongitude = options.lang.mobile_js_global_lng,
       timerId,
+      globalLatitude    = bikeplusoptions.lang.mobile_js_global_lat,
+      globalLongitude   = bikeplusoptions.lang.mobile_js_global_lng,
       facebookConnected = false,
       $mapbikes         = d.getElementById('mapbikes'),
       $resetlocation    = d.getElementById('resetlocation'),
@@ -27,19 +29,14 @@ var BikePlus = (function(w,d,options){
       $menu             = d.getElementById('menu'),
       $menulist         = d.getElementById('menulist'),
       marker_width = 70,
-      marker_height = 50,
-      tmpl = {
-        dock : doT.template(d.getElementById('docktmpl').text),
-        timerlist : doT.template(d.getElementById('timerlisttmpl').text),
-        bookmarks : doT.template(d.getElementById('bookmarkstmpl').text)
-      };
+      marker_height = 50;
 
   var START_EV = (w.navigator.msPointerEnabled) ? "MSPointerDown" : "ontouchstart" in w ? "touchstart" : "mousedown";
   //var MOVE_EV  = (w.navigator.msPointerEnabled) ? "MSPointerMove" : "ontouchstart" in w ? "touchmove"  : "mousemove";
   var PIXEL_RATIO = (function(){ var ctx = d.createElement("canvas").getContext("2d"), dpr = w.devicePixelRatio || 1, bsr = ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1; return dpr / bsr; })();
   var isOldAndroid = (function(){ var ua = navigator.userAgent; if( ua.indexOf("Android") >= 0 ) { var androidversion = parseFloat(ua.slice(ua.indexOf("Android")+8)); if (androidversion < 3.2) { return true; } } return false; })();
   var canvas_font = (w.navigator.msPointerEnabled) ? "Arial" : (navigator.userAgent.indexOf("Android") >= 0) ? "Roboto" : "STHeitiSC-Light" ; //STHeitiSC-Light";
-  var createGuid = function(){ return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8); return v.toString(16); }); }
+  var createGuid = function(){ return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) { var r = Math.random()*16|0, v = c === 'x' ? r : (r&0x3|0x8); return v.toString(16); }); };
 
   //GeoImg Marker Img
   var geoimgmarker = new Image();
@@ -48,6 +45,7 @@ var BikePlus = (function(w,d,options){
   //GeoImg Pointer [ geolocationpointer ]
   var geolocationpointer = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAk1BMVEUAAAAAAAAAAAAVFRUvLy8qKio0MTE1MjI1MzP+JSX/ISH/HR0AAAA2MTHRKSk3MzMuLi42MjIsLCwcHBw4MjI2MTEpKSnIKSs2MzMyLCz/HR3/JCT/JSX/ISH/Jib/HBz/Hh7/IyP3JyfqKCj/Hx//IiLpKCjlKCjkKCjuKCjyJyf0JyfzJyf/ICD5Jyf8Jyf9Jyf0C/cBAAAAGnRSTlMAAQYMKxhdSHPW9v4DWb9vIUcjEil3JcV3KdIG2UwAAADySURBVHhedZHXbsMwDEXlufdIWmp6juz//7oKtBOkDz6iCOhC4CSIEVtOWdelY8UGeWOYlV24WdNkbmFXpvFWc88PwgggCgPfy7WO6ilJldxRaXJC3cyTM0h1Hykd70rCOclN/bnyUimHljKqrR2kTL3KILHtD3KgbIfqh2/HxCoCUC37QBUEhUUcNwQuvuAQug4pswjab7mFKCtJ3YAU/5Dw87vJz9dzM+1QxiC067rHo9NHe4pBMOXlernh1YYptwLF+kFggVs7/NpP09RPfX/j2M7ePBfLMs/zIvjW/GdUI1tXNu6jOhjswRqOlnaw4j8VMScl24SBeQAAAABJRU5ErkJggg==';
   var geolocationpointersmall = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAMAAAAMCGV4AAAAYFBMVEX///8XEAkVDAIVFhcVExEVDAIVCwAYEw4XEAkYEQkYEQoXEgwWJDIVMVEUN10TNVsTNFkNPXIKP3kIQX8EQYMLQHsEQYUGQoMMQHkMQHoOP3QOP3YPPnIIQoEEQocLQXxatOuJAAAAE3RSTlMAEREiIiIiMzMzMzNViJmqu93u8OdLsgAAAHtJREFUeF5lj9kSwjAIRelelWwF0lX9/78UWp3p1PN2uGEJGGXbd31bwpcafYjBY31o5RIbyVV76gZ+GTw4fVFgMjU4YQGNNz1g38A9nDzcoIsnjw/LR3rujJpbP79nEZmFtd/mZ1q3ZVsp23zbn2laJsq2/3rf9f7r/z5HXA0vHQNE+wAAAABJRU5ErkJggg==';
+  var geolocationpointeroldandroid = '/assets/img/geolocationmarker_old_android.v2.png';
 
   function mapInit() {
     google.maps.visualRefresh = true;
@@ -106,7 +104,7 @@ var BikePlus = (function(w,d,options){
     //var searchBox = new google.maps.places.SearchBox(input);
     //google.maps.event.addListener(searchBox, 'places_changed', function() {
     //  var places = searchBox.getPlaces();
-    //  console.log(places);
+    //  DEBUG && console.log(places);
     //});
   }
 
@@ -132,7 +130,7 @@ var BikePlus = (function(w,d,options){
     for(var i=0,ln=markersdata.length; i < ln; i++) {
       id = markersdata[i].id;
       markers[id] = markers[id] || {};
-      //console.log(markers[id]);
+      //DEBUG && console.log(markers[id]);
 
       if(zoom < 16) {
         var size_small = 15 + ((zoom-16)*2);
@@ -158,6 +156,7 @@ var BikePlus = (function(w,d,options){
               scaledSize: new google.maps.Size(size_small, size_small)
           });
         }
+
         markers[id].markerType = 'small'+size_small;
 
         if(markers[id].listenerHandler !== void 0) {
@@ -173,7 +172,7 @@ var BikePlus = (function(w,d,options){
           position: markersdata[i].latLng,
           map: map,
           icon: {
-            url: (!isOldAndroid) ? createMarker(markersdata[i].id, markersdata[i].sn, markersdata[i].ab, markersdata[i].ad) : '/assets/img/geolocationmarker_old_android.v2.png',
+            url: (!isOldAndroid) ? createMarker(markersdata[i].id, markersdata[i].sn, markersdata[i].ab, markersdata[i].ad) : geolocationpointeroldandroid,
             size: new google.maps.Size(marker_width, marker_height),
             scaledSize: new google.maps.Size(marker_width, marker_height)
           },
@@ -183,7 +182,7 @@ var BikePlus = (function(w,d,options){
       }
       else if(markers[id].markerType !== 'big') {
         markers[id].marker.setIcon({
-          url: (!isOldAndroid) ? createMarker(markersdata[i].id, markersdata[i].sn, markersdata[i].ab, markersdata[i].ad) : '/assets/img/geolocationmarker_old_android.v2.png',
+          url: (!isOldAndroid) ? createMarker(markersdata[i].id, markersdata[i].sn, markersdata[i].ab, markersdata[i].ad) : geolocationpointeroldandroid,
           size: new google.maps.Size(marker_width, marker_height),
           scaledSize: new google.maps.Size(marker_width, marker_height)
         });
@@ -215,11 +214,11 @@ var BikePlus = (function(w,d,options){
             //$dock.classList.add("bounceIn");
             if(clockHandler.is_running()) {
               markersdata[i].timer = 'true';
-              markersdata[i].timerlabel = options.lang.mobile_js_ride_finish;
+              markersdata[i].timerlabel = bikeplusoptions.lang.mobile_js_ride_finish;
             }
             else {
               markersdata[i].timer = '';
-              markersdata[i].timerlabel = options.lang.mobile_js_ride_start;
+              markersdata[i].timerlabel = bikeplusoptions.lang.mobile_js_ride_start;
             }
 
             if(!facebookConnected) {
@@ -230,11 +229,11 @@ var BikePlus = (function(w,d,options){
             }
 
             //Check if bookmark already added
-            if(localStorage["bookmarkDock"] === undefined) {
+            if(localStorage.bookmarkDock === undefined) {
               currentBookmarks = [];
             }
             else {
-              currentBookmarks = JsonParse(localStorage["bookmarkDock"]);
+              currentBookmarks = jsonParse(localStorage.bookmarkDock);
             }
             markersdata[i].bookmarksAdded = currentBookmarks.filter(function(el){return (el.id === markersdata[i].id) ? true : false; })[0];
 
@@ -242,7 +241,7 @@ var BikePlus = (function(w,d,options){
             oldcenter = map.getCenter();
             markersdata[i].distance = getDistance(globalLatitude, globalLongitude, markersdata[i].la, markersdata[i].lo);
 
-            $dock.innerHTML = tmpl.dock(markersdata[i]);
+            $dock.innerHTML = bikeplusoptions.tmpl.dock(markersdata[i]);
             $dock.style.top = wHeight - 100 - 48 + 'px';
 
             $mapbikes.style.height = wHeight - 100 - 48 + 20 + "px";
@@ -252,12 +251,12 @@ var BikePlus = (function(w,d,options){
           };
         })(i));
       }
-
     }
   }
 
   function markersHandler(e) {
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
     while(target) {
       if(target.className === 'close') { // || target.id === 'dock'
@@ -286,7 +285,7 @@ var BikePlus = (function(w,d,options){
             }
           });
           target.className = 'timing';
-          target.querySelector('strong').innerHTML = options.lang.mobile_js_ride_start;
+          target.querySelector('strong').innerHTML = bikeplusoptions.lang.mobile_js_ride_start;
           target.value = '';
           break;
         }
@@ -294,7 +293,7 @@ var BikePlus = (function(w,d,options){
           var fbshare = (target.querySelector('.sharefacebook').className.indexOf('facebook') > -1) ? true : false;
           var $countdown = target.querySelector('.countdown');
           var $strong = target.querySelector('strong');
-          $strong.innerHTML = options.lang.mobile_js_ride_starting;
+          $strong.innerHTML = bikeplusoptions.lang.mobile_js_ride_starting;
           setTimeout(function(){
             $countdown.innerHTML = '<span>3</span>';
           }, 50);
@@ -317,7 +316,7 @@ var BikePlus = (function(w,d,options){
             target.value = 'true';
             target.className = 'timing active';
             $countdown.innerHTML = '<span class="icon-stopwatch"></span>';
-            $strong.innerHTML = options.lang.mobile_js_ride_finish;
+            $strong.innerHTML = bikeplusoptions.lang.mobile_js_ride_finish;
           }, 3750);
 
           setTimeout(function(){
@@ -363,7 +362,7 @@ var BikePlus = (function(w,d,options){
     lat2 = parseInt(lat2*100000000, 10)/100000000;
     lon2 = parseInt(lon2*100000000, 10)/100000000;
 
-    var R = options.lang.mobile_dockdistanceratio; // km (change this constant to get miles) 6371
+    var R = bikeplusoptions.lang.mobile_dockdistanceratio; // km (change this constant to get miles) 6371
     var PI = Math.PI / 180;
     var dLat = (lat2-lat1) * PI;
     var dLon = (lon2-lon1) * PI;
@@ -376,25 +375,25 @@ var BikePlus = (function(w,d,options){
   }
 
   function bookmarkDock(target){
-    var dock = bikeplusoptions.datastations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
+    var dock = bikeplusoptions.data.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
 
-    if(localStorage["bookmarkDock"] === undefined) {
-      localStorage["bookmarkDock"] = JSON.stringify([]);
+    if(localStorage.bookmarkDock === undefined) {
+      localStorage.bookmarkDock = JSON.stringify([]);
     }
 
-    var currentBookmark = JsonParse(localStorage["bookmarkDock"]);
+    var currentBookmark = jsonParse(localStorage.bookmarkDock);
     if(currentBookmark.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; }).length === 0 ) {
       currentBookmark.push({
-        'id'     : dock['id'],
-        'sn'     : dock['sn'],
-        'la'     : dock['la'],
-        'lo'     : dock['lo'],
-        'latLng' : dock['latLng']
+        'id'     : dock.id,
+        'sn'     : dock.sn,
+        'la'     : dock.la,
+        'lo'     : dock.lo,
+        'latLng' : dock.latLng
       });
     }
-    localStorage["bookmarkDock"] = JSON.stringify(currentBookmark);
+    localStorage.bookmarkDock = JSON.stringify(currentBookmark);
 
-    target.querySelector('strong').innerHTML = options.lang.mobile_js_bookmarks_added;
+    target.querySelector('strong').innerHTML = bikeplusoptions.lang.mobile_js_bookmarks_added;
     target.querySelector('.icon-bookmark').classList.add('added');
     setTimeout( function(){ target.querySelector('strong').innerHTML = ''; }, 1750);
   }
@@ -415,21 +414,21 @@ var BikePlus = (function(w,d,options){
     context.drawImage(geoimgmarker, 0, 0, canvas.width, canvas.height);
 
     /*ID*/
-    context.fillStyle ="rgba(255,255,255,1)";
+    context.fillStyle = "rgba(255,255,255,1)";
     context.font = (10 * PIXEL_RATIO)+"px "+ canvas_font;
     context.textAlign = "left";
     context.fillText(sn, 5 * PIXEL_RATIO, 37 * PIXEL_RATIO, 60 * PIXEL_RATIO);
 
     /*Bikes*/
-    context.fillStyle ="rgba(0,0,0,1)";
+    context.fillStyle = "rgba(0,0,0,1)";
     context.font = (16 * PIXEL_RATIO)+"px "+ canvas_font;
     context.textAlign = "left";
     context.fillText(ab, 20 * PIXEL_RATIO, 20 * PIXEL_RATIO);
 
     /*Docks*/
-    context.fillStyle ="rgba(0,0,0,1)";
-    context.font = (16 * PIXEL_RATIO)+"px "+ canvas_font;
-    context.textAlign = "left";
+    //context.fillStyle = "rgba(0,0,0,1)";
+    //context.font = (16 * PIXEL_RATIO)+"px "+ canvas_font;
+    //context.textAlign = "left";
     context.fillText(ad, 51 * PIXEL_RATIO, 20 * PIXEL_RATIO);
 
     createMarker.cache[key] = canvas.toDataURL();
@@ -444,7 +443,7 @@ var BikePlus = (function(w,d,options){
     }
     promise.get('/api/latest').then(function(error, text/*, xhr*/) {
       if(error){ /*alert('Error ' + xhr.status);*/ return; }
-      w.bikeplusoptions.data = JsonParse(text);
+      w.bikeplusoptions.data = jsonParse(text);
       w.bikeplusoptions.data.fetched = Date.now();
       $parseTime.innerHTML = w.bikeplusoptions.data.parseTime;
       generateMarker();
@@ -453,13 +452,12 @@ var BikePlus = (function(w,d,options){
 
   var currentPosition = (function(){
     function set(lat, lng){
-      //console.log('setta', lat, lng)
-      localStorage["position"] = JSON.stringify({'lat': lat.toString(), 'lng': lng.toString()});
+      localStorage.position = JSON.stringify({'lat': lat.toString(), 'lng': lng.toString()});
     }
 
     function get(){
-      if(localStorage["position"]) {
-        return JsonParse(localStorage["position"]);
+      if(localStorage.position) {
+        return jsonParse(localStorage.position);
       }
       return false;
     }
@@ -476,8 +474,8 @@ var BikePlus = (function(w,d,options){
         center;
 
     function updateLocation(position) {
-      globalLatitude = position.coords.latitude,
-      globalLongitude = position.coords.longitude,
+      globalLatitude = position.coords.latitude;
+      globalLongitude = position.coords.longitude;
       accuracy = position.coords.accuracy;
       center = new google.maps.LatLng(globalLatitude, globalLongitude);
       currentPositionMarker.setPosition(center);
@@ -532,18 +530,18 @@ var BikePlus = (function(w,d,options){
       $stopwatch : $timer.querySelector('.icon-stopwatch'),
       $timelandscape : d.getElementById('timing')
     },
-    start : function(options) {
-      //console.log('start');
+    start : function(opt) {
+      DEBUG && console.log('start');
       if(timerId) {
         clockHandler.stop({ dock : { id : 'false' } });
         return;
       }
 
-      if(localStorage["timer"] && localStorage["timer"].length > 0) {
-        clockHandler.options.time = localStorage["timer"];
+      if(localStorage.timer && localStorage.timer.length > 0) {
+        clockHandler.options.time = localStorage.timer;
       }
       else {
-        clockHandler.options.time = localStorage["timer"] = +Date.now();
+        clockHandler.options.time = localStorage.timer = +Date.now();
       }
 
       clockHandler.options.$stopwatch.style.display = 'none';
@@ -558,10 +556,10 @@ var BikePlus = (function(w,d,options){
       }
 
       //Store time in localstorage
-      if(localStorage["timerList"] === undefined) {
-        localStorage["timerList"] = JSON.stringify([]);
+      if(localStorage.timerList === undefined) {
+        localStorage.timerList = JSON.stringify([]);
       }
-      var timerList = JsonParse(localStorage["timerList"]);
+      var timerList = jsonParse(localStorage.timerList);
       var alreadystarted = false;
       for(var i=timerList.length; i--;){
         if(timerList[i].stop.time === 0) {
@@ -570,7 +568,7 @@ var BikePlus = (function(w,d,options){
       }
 
       if(alreadystarted) {
-        //console.log('alreadystarted');
+        //DEBUG && console.log('alreadystarted');
         return;
       }
       var now = Math.ceil(Date.now()/1000);
@@ -584,10 +582,10 @@ var BikePlus = (function(w,d,options){
           'la'   : lat,
           'lo'   : lng,
           'dock' : {
-            'id' : (options.dock.id) ? options.dock.id : false,
-            'sn' : (options.dock.id) ? options.dock.sn : false,
-            'la' : (options.dock.id) ? options.dock.la : false,
-            'lo' : (options.dock.id) ? options.dock.lo : false
+            'id' : (opt.dock.id) ? opt.dock.id : false,
+            'sn' : (opt.dock.id) ? opt.dock.sn : false,
+            'la' : (opt.dock.id) ? opt.dock.la : false,
+            'lo' : (opt.dock.id) ? opt.dock.lo : false
           }
         },
         'stop': {
@@ -603,34 +601,35 @@ var BikePlus = (function(w,d,options){
         },
         'share' : {
           'facebook' : {
-            'uuid' : (options.fbshare) ? uuid : false,
+            'uuid' : (opt.fbshare) ? uuid : false,
             'responseid' : ''
           }
         }
       };
-      //console.log(data);
+      //DEBUG && console.log(data);
       timerList.push(data);
-      localStorage["timerList"] = JSON.stringify(timerList);
+      localStorage.timerList = JSON.stringify(timerList);
 
       //Share in Facebook
-      if(options.fbshare) {
+      if(opt.fbshare) {
         FBshareRide({ 'uuid' : uuid });
       }
 
     },
-    stop : function(options){
-      //console.log('stop');
-      localStorage["timer"] = '';
-      clearInterval(timerId); timerId = 0;
+    stop : function(opt){
+      //DEBUG && console.log('stop');
+      localStorage.timer = '';
+      clearInterval(timerId);
+      timerId = 0;
       clockHandler.options.$time.innerHTML = '';
       clockHandler.options.$timelandscape.innerHTML = '00 : 00';
       clockHandler.options.$stopwatch.style.display = 'inline-block';
 
       //Store time in localstorage
-      if(localStorage["timerList"] === undefined) {
-        localStorage["timerList"] = JSON.stringify([]);
+      if(localStorage.timerList === undefined) {
+        localStorage.timerList = JSON.stringify([]);
       }
-      var timerList = JsonParse(localStorage["timerList"]);
+      var timerList = jsonParse(localStorage.timerList);
       //timerList = timerList.slice(timerList.length-20);
       var now = Math.ceil(Date.now()/1000);
       var lat = map.getCenter().lat();
@@ -642,13 +641,14 @@ var BikePlus = (function(w,d,options){
             'la'   : lat,
             'lo'   : lng,
             'dock' : {
-              'id' : (options.dock.id) ? options.dock.id : false,
-              'sn' : (options.dock.id) ? options.dock.sn : false,
-              'la' : (options.dock.id) ? options.dock.la : lat,
-              'lo' : (options.dock.id) ? options.dock.lo : lng
+              'id' : (opt.dock.id) ? opt.dock.id : false,
+              'sn' : (opt.dock.id) ? opt.dock.sn : false,
+              'la' : (opt.dock.id) ? opt.dock.la : lat,
+              'lo' : (opt.dock.id) ? opt.dock.lo : lng
             }
-          }
-          localStorage["timerList"] = JSON.stringify(timerList);
+          };
+
+          localStorage.timerList = JSON.stringify(timerList);
           shareRideUpdate(timerList[i]);
           break;
         }
@@ -668,7 +668,7 @@ var BikePlus = (function(w,d,options){
       return minutes+' : '+seconds;
     },
     check : function(){
-      if(localStorage["timer"] && localStorage["timer"].length > 0) {
+      if(localStorage.timer && localStorage.timer.length > 0) {
         clockHandler.start();
       }
     },
@@ -681,11 +681,12 @@ var BikePlus = (function(w,d,options){
   };
 
   function timerHandler(e) {
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
     while(target) {
       if(target.className === 'icon-cycle') {
-        w.location.reload(); break;
+        w.location.reload();break;
         $search.classList.toggle('active');
         break;
       }
@@ -696,12 +697,7 @@ var BikePlus = (function(w,d,options){
         list.timerlabel = (clockHandler.is_running()) ? 'Stop timer' : 'Start timer';
         list.history = [];
 
-        var timerList;
-        try {
-          timerList = JsonParse(localStorage["timerList"]);
-        } catch (e) {
-          timerList = []
-        }
+        var timerList = jsonParse(localStorage.timerList);
 
         for(var i=timerList.length; i--;){
           if( timerList[i].stop.time > 0 && (timerList[i].stop.time < timerList[i].start.time + 55) ) continue;
@@ -729,8 +725,8 @@ var BikePlus = (function(w,d,options){
         else {
           list.facebook = '';
         }
-
-        $timerlist.innerHTML = tmpl.timerlist(list);
+        DEBUG && console.log(list);
+        $timerlist.innerHTML = bikeplusoptions.tmpl.timerlist(list);
         break;
       }
 
@@ -740,7 +736,8 @@ var BikePlus = (function(w,d,options){
   }
 
   function timerlistHandler(e) {
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
     while(target) {
       if(target.tagName === 'LI') {
@@ -765,32 +762,34 @@ var BikePlus = (function(w,d,options){
   }
 
   function bookmarksHandler(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var currentBookmarks;
 
-    if(localStorage["bookmarkDock"] === undefined) {
+    if(localStorage.bookmarkDock === undefined) {
       currentBookmarks = [];
     }
     else {
-      currentBookmarks = JsonParse(localStorage["bookmarkDock"]);
+      currentBookmarks = jsonParse(localStorage.bookmarkDock);
     }
 
     var i = currentBookmarks.length;
     while (i--) {
       var d = bikeplusoptions.data.stations.filter(function(el){return (el.id === currentBookmarks[i].id) ? true : false; })[0];
-      currentBookmarks[i]['ab'] = d['ab'];
-      currentBookmarks[i]['ad'] = d['ad'];
+      currentBookmarks[i].ab = d.ab;
+      currentBookmarks[i].ad = d.ad;
       currentBookmarks[i].distance = getDistance(globalLatitude, globalLongitude, currentBookmarks[i].la, currentBookmarks[i].lo);
     }
 
-    $bookmarkscontent.innerHTML = tmpl.bookmarks(currentBookmarks);
+    $bookmarkscontent.innerHTML = bikeplusoptions.tmpl.bookmarks(currentBookmarks);
     $bookmarks.classList.toggle("active");
 
     return;
   }
 
   function bookmarksContentHandler(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
     while(target) {
       if(target.tagName === 'LI') {
@@ -803,9 +802,9 @@ var BikePlus = (function(w,d,options){
 
       if(target.className === 'icon-trashcan') {
         var currentBookmarks;
-        currentBookmarks = JsonParse(localStorage["bookmarkDock"]);
+        currentBookmarks = jsonParse(localStorage.bookmarkDock);
         currentBookmarks = currentBookmarks.filter(function(el){return (el.id === target.parentNode.dataset.dockid) ? false : true; });
-        localStorage["bookmarkDock"] = JSON.stringify(currentBookmarks);
+        localStorage.bookmarkDock = JSON.stringify(currentBookmarks);
         target.parentNode.style.display = 'none';
         break;
       }
@@ -820,7 +819,8 @@ var BikePlus = (function(w,d,options){
   }
 
   function searchHandler(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
     if(target.tagName === 'INPUT') {
       target.focus();
@@ -831,13 +831,11 @@ var BikePlus = (function(w,d,options){
     w.scrollTo(0, 1);
 
     while(target) {
-
       if(target.tagName === 'SPAN') {
         d.getElementById('targetinput').blur();
         $search.classList.toggle('active');
         break;
       }
-
       target = target.parentNode;
     }
     return;
@@ -849,16 +847,17 @@ var BikePlus = (function(w,d,options){
   }, false);
 
   function searchContentHandler(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     var target = e.target;
-    console.log(e);
+    DEBUG && console.log(e);
     while(target) {
 
       if(target.className === 'icon-trashcan') {
         var currentBookmarks;
-        currentBookmarks = JsonParse(localStorage["bookmarkDock"]);
+        currentBookmarks = jsonParse(localStorage.bookmarkDock);
         currentBookmarks = currentBookmarks.filter(function(el){return (el.id === target.parentNode.dataset.dockid) ? false : true; });
-        localStorage["bookmarkDock"] = JSON.stringify(currentBookmarks);
+        localStorage.bookmarkDock = JSON.stringify(currentBookmarks);
         target.parentNode.style.display = 'none';
         break;
       }
@@ -885,12 +884,14 @@ var BikePlus = (function(w,d,options){
 
   /*Events*/
   $resetlocation.addEventListener(START_EV, function(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     watchPosition.restoreLocation(dragstart);
   });
 
   $landscape.addEventListener(START_EV, function(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
   });
 
   $search.addEventListener(START_EV, searchHandler);
@@ -902,7 +903,8 @@ var BikePlus = (function(w,d,options){
   $timerlist.addEventListener(START_EV, timerlistHandler);
 
   $menu.addEventListener(START_EV, function(e){
-    e.preventDefault(); e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
     $menu.classList.toggle("active");
   });
 
@@ -915,11 +917,11 @@ var BikePlus = (function(w,d,options){
 
   w.onorientationchange = doOnOrientationChange;
 
-
-  function JsonParse(s) {
+  function jsonParse(s) {
     try {
       return JSON.parse(s);
     } catch (e) {
+      DEBUG && console.error('Json Error',e);
       return [];
     }
   }
@@ -927,8 +929,8 @@ var BikePlus = (function(w,d,options){
   //FACEBOOK
   window.fbAsyncInit = function() {
     FB.init({
-      appId      : options.fbappid,
-      channelUrl : '//'+options.shareurl+'/channel.html',
+      appId      : bikeplusoptions.fbappid,
+      channelUrl : '//'+bikeplusoptions.shareurl+'/channel.html',
       status     : true,
       cookie     : true,
       xfbml      : false
@@ -937,7 +939,8 @@ var BikePlus = (function(w,d,options){
     FB.getLoginStatus(menuCallback, true);
 
     $menulist.addEventListener(START_EV, function(e){
-      e.preventDefault(); e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
       var target = e.target;
       while(target) {
         if(target.className === 'facebook') {
@@ -945,11 +948,11 @@ var BikePlus = (function(w,d,options){
           break;
         }
         if(target.className === 'facebook_logout') {
-          var r = confirm(options.lang.mobile_js_logout);
+          var r = confirm(bikeplusoptions.lang.mobile_js_logout);
           if( r === true) {
             FB.logout(function(/*response*/) {
               facebookConnected = false;
-              $menulist.innerHTML = menulisttmpl({});
+              $menulist.innerHTML = bikeplusoptions.tmpl.menulist({});
             });
           }
           break;
@@ -960,46 +963,44 @@ var BikePlus = (function(w,d,options){
     });
 
     //FB.Event.subscribe('auth.authResponseChange', function(e) {
-    //  console.log('5', e);
+    //  DEBUG && console.log('5', e);
     //});
   };
 
-  var menulisttmpl = doT.template(document.getElementById('menulisttmpl').text);
-  var $menulist = document.getElementById('menulist');
   function menuCallback(response) {
-    //console.log(response);
-    //console.log(response.authResponse);
+    //DEBUG && console.log(response);
+    //DEBUG && console.log(response.authResponse);
     if(response.authResponse || response.status === 'connected') {
       facebookConnected = true;
 
       $menu.className = 'loggedin';
 
-      if( $dock.querySelector('button .facebook') ) {
-        $dock.querySelector('button .facebook').classList.toggle('notconnected');
+      if( $dock.querySelector('.facebook') ) {
+        $dock.querySelector('.facebook').classList.toggle('notconnected');
       }
 
       FB.api('/me?fields=id,first_name,name,picture', function(user) {
-        $menulist.innerHTML = menulisttmpl(user);
+        $menulist.innerHTML = bikeplusoptions.tmpl.menulist(user);
         FB.api(
           {
             method: 'fql.query',
             query: 'SELECT uid, name, pic_square FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me() ) AND is_app_user = 1'
           },
           function(response) {
-            $menulist.innerHTML = menulisttmpl({'user': user, 'friends' : response});
+            $menulist.innerHTML = bikeplusoptions.tmpl.menulist({'user': user, 'friends' : response});
             $menu.querySelector('img').src = user.picture.data.url;
-            //console.log(user);
-            //console.log(response);
+            //DEBUG && console.log(user);
+            //DEBUG && console.log(response);
           }
         );
       });
     } else {
-      $menulist.innerHTML = menulisttmpl({});
+      $menulist.innerHTML = bikeplusoptions.tmpl.menulist({});
     }
   }
 
   function FBshareRide(options) {
-    var timerList = JsonParse(localStorage["timerList"]);
+    var timerList = jsonParse(localStorage.timerList);
     var id;
     for(var i=timerList.length; i--;){
       if(timerList[i].share.facebook.uuid === options.uuid) {
@@ -1007,12 +1008,12 @@ var BikePlus = (function(w,d,options){
         break;
       }
     }
-    //console.log('FBshareRide: : options', options);
-    //console.log('FBshareRide: : id', id);
-    //console.log('FBshareRide: : timerList[id]', timerList[id]);
+    DEBUG && console.log('FBshareRide: : options', options);
+    DEBUG && console.log('FBshareRide: : id', id);
+    DEBUG && console.log('FBshareRide: : timerList[id]', timerList[id]);
     if(!id) return;
 
-    var course = 'http://'+options.shareurl+'/bike/ride/' +
+    var course = 'http://'+bikeplusoptions.shareurl+'/bike/ride/' +
                   timerList[id].uuid +
                   '/start/' +
                   timerList[id].start.dock.id +
@@ -1020,14 +1021,15 @@ var BikePlus = (function(w,d,options){
                   timerList[id].start.dock.la +
                   '/' +
                   timerList[id].start.dock.lo;
-    //console.log('course start: ', course);
 
+    DEBUG && console.log('course start: ', course);
+    DEBUG && console.log(course);
 
     promise.get(course).then(function(error/*, text*//*, xhr*/) {
       if(error){ /*alert('Error ' + xhr.status);*/ return; }
       var date = Math.ceil(Date.now()/1000);
-      var courseid = 'http://'+options.shareurl+'/bike/ride/' + timerList[id].uuid;
-      //console.log('start courseid', courseid);
+      var courseid = 'http://'+bikeplusoptions.shareurl+'/bike/ride/' + timerList[id].uuid;
+      //DEBUG && console.log('start courseid', courseid);
       FB.api(
         '/me/fitness.bikes',
         'post',
@@ -1049,17 +1051,18 @@ var BikePlus = (function(w,d,options){
         },
         function(response) {
           if (!response) {
-            //console.log('Error occurred.');
+            DEBUG && console.log('Error occurred.');
           }
           else if (response.error) {
-            //console.log(response.error.message);
+            DEBUG && console.log('Error occurred.', response.error.message);
           }
           else {
             //response.id
+            DEBUG && console.log('response.id.', response.id);
             var log = '<a href=\"https://www.facebook.com/me/activity/' + response.id + '\">' + 'Story created.  ID is ' + response.id + '</a>';
-            console.log(log);
+            DEBUG && console.log(log);
             timerList[id].share.facebook.responseid = response.id;
-            localStorage["timerList"] = JSON.stringify(timerList);
+            localStorage.timerList = JSON.stringify(timerList);
           }
         }
       );
@@ -1068,12 +1071,12 @@ var BikePlus = (function(w,d,options){
 
   }
   function shareRideUpdate(options) {
-    //console.log('shareRideUpdate : options: ', options);
+    //DEBUG && console.log('shareRideUpdate : options: ', options);
     if(!('share' in options) || !('facebook' in options.share)) {
       return;
     }
-
-    var course = 'http://'+options.shareurl+'/bike/ride/' +
+    DEBUG && console.log(options);
+    var course = 'http://'+bikeplusoptions.shareurl+'/bike/ride/' +
             options.share.facebook.uuid +
             '/stop/' +
             options.stop.dock.id +
@@ -1081,13 +1084,16 @@ var BikePlus = (function(w,d,options){
             options.stop.dock.la +
             '/' +
             options.stop.dock.lo;
-    //console.log('course stop', course);
+
+    DEBUG && console.log('course stop', course);
 
     promise.get(course).then(function(error/*, text*//*, xhr*/) {
       if(error){ /*alert('Error ' + xhr.status);*/ return; }
       var date = Math.ceil(Date.now()/1000);
-      var courseid = 'http://'+options.shareurl+'/bike/ride/' + options.share.facebook.uuid;
-      //console.log('stop courseid', courseid);
+      var courseid = 'http://'+bikeplusoptions.shareurl+'/bike/ride/' + options.share.facebook.uuid;
+
+      DEBUG && console.log('stop courseid', courseid);
+
       //Posted the whole route
       FB.api(
         options.share.facebook.responseid,
@@ -1099,13 +1105,13 @@ var BikePlus = (function(w,d,options){
         },
         function(response) {
           if (!response) {
-            //console.log('Error occurred.');
+            DEBUG && console.log('Error occurred.');
           }
           else if (response.error) {
-            //console.log(response.error.message);
+            DEBUG && console.log(response.error.message);
           }
           else {
-            //console.log(response);
+             DEBUG && console.log(response);
             FB.api(
               options.share.facebook.responseid,
               'get',
@@ -1113,13 +1119,13 @@ var BikePlus = (function(w,d,options){
               },
               function(response) {
                 if (!response) {
-                  //console.log('Error occurred.');
+                  //DEBUG && console.log('Error occurred.');
                 }
                 else if (response.error) {
-                  //console.log(response.error.message);
+                  //DEBUG && console.log(response.error.message);
                 }
                 else {
-                  //console.log(response);
+                  //DEBUG && console.log(response);
                   FB.api(
                     response.data.course.id,
                     'post',
@@ -1128,13 +1134,13 @@ var BikePlus = (function(w,d,options){
                     },
                     function(response) {
                       if (!response) {
-                        //console.log('Error occurred.');
+                        //DEBUG && console.log('Error occurred.');
                       }
                       else if (response.error) {
-                        //console.log(response.error.message);
+                        //DEBUG && console.log(response.error.message);
                       }
                       else {
-                        //console.log(response);
+                        //DEBUG && console.log(response);
                       }
                     }
                   );
@@ -1158,9 +1164,9 @@ var BikePlus = (function(w,d,options){
 
   return {
     mapInit: mapInit
-  }
+  };
 
-})(window, document, bikeplusoptions);
+})(window, document);
 
 
 
@@ -1173,8 +1179,8 @@ var BikePlus = (function(w,d,options){
 //        break;
 //      }
 //      if(target.className === 'dock') {
-//        var dock = bikeplusoptions.datastations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
-//        console.log(dock);
+//        var dock = bikeplusoptions.data.stations.filter(function(el){return (el.id === target.dataset.dockid) ? true : false; })[0];
+//        DEBUG && console.log(dock);
 //        break;
 //      }
 //      target = target.parentNode;
@@ -1195,19 +1201,19 @@ var BikePlus = (function(w,d,options){
 //
 //    function _nearestPoints(){
 //      nearDocks = [];
-//      for(var i=0,ln=bikeplusoptions.datastations.length; i < ln; i++) {
-//        var latLng = new google.maps.LatLng(bikeplusoptions.datastations[i].la, bikeplusoptions.datastations[i].lo);
+//      for(var i=0,ln=bikeplusoptions.data.stations.length; i < ln; i++) {
+//        var latLng = new google.maps.LatLng(bikeplusoptions.data.stations[i].la, bikeplusoptions.data.stations[i].lo);
 //        var bounds = map.getBounds();
 //        if(bounds.contains(latLng)) {
 //          nearbikeplusoptions.datapush({
-//            'id'     : bikeplusoptions.datastations[i]['id'],
-//            'ad'     : bikeplusoptions.datastations[i]['ad'],
-//            'ab'     : bikeplusoptions.datastations[i]['ab'],
-//            'sn'     : bikeplusoptions.datastations[i]['sn'],
-//            'la'     : bikeplusoptions.datastations[i]['la'],
-//            'lo'     : bikeplusoptions.datastations[i]['lo'],
+//            'id'     : bikeplusoptions.data.stations[i]['id'],
+//            'ad'     : bikeplusoptions.data.stations[i]['ad'],
+//            'ab'     : bikeplusoptions.data.stations[i]['ab'],
+//            'sn'     : bikeplusoptions.data.stations[i]['sn'],
+//            'la'     : bikeplusoptions.data.stations[i]['la'],
+//            'lo'     : bikeplusoptions.data.stations[i]['lo'],
 //            'latLng' : latLng,
-//            'dist'   : _distance(bikeplusoptions.datastations[i].la, bikeplusoptions.datastations[i].lo, map.getCenter().lat(), map.getCenter().lng())
+//            'dist'   : _distance(bikeplusoptions.data.stations[i].la, bikeplusoptions.data.stations[i].lo, map.getCenter().lat(), map.getCenter().lng())
 //          });
 //        }
 //      }
@@ -1252,7 +1258,7 @@ var BikePlus = (function(w,d,options){
 
 //  google.maps.event.addListenerOnce(map, 'idle', function(){
 //    //var bounds = map.getBounds();
-//    //console.log(bounds);
+//    //DEBUG && console.log(bounds);
 //    //var ne = bounds.getNorthEast();
 //    //var sw = bounds.getSouthWest();
 //    //var nw = new google.maps.LatLng(ne.lat(), sw.lng());
