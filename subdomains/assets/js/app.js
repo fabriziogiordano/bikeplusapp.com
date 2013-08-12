@@ -782,6 +782,7 @@ var BikePlus = (function(w,d){
     }
 
     var currentBookmarks = {};
+    currentBookmarks.data = [];
 
     if(localStorage.bookmarkDock !== undefined) {
       currentBookmarks.data = jsonParse(localStorage.bookmarkDock);
