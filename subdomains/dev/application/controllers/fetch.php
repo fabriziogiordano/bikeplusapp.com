@@ -140,10 +140,10 @@ class Fetch extends CI_Controller {
     $url  = 'http://www.capitalbikeshare.com/data/stations/bikeStations.xml';
     $html = $this->fetch($url);
     $table = (empty($table)) ? 'stations'.__FUNCTION__ : $table;
-
     $xml = simplexml_load_string($html, 'SimpleXMLElement', LIBXML_NOCDATA);
 
     if(count($xml->station)) {
+
       $this->db->trans_start();
 
       //Trucate DB
@@ -159,16 +159,16 @@ class Fetch extends CI_Controller {
         }
         $data[] = array(
           'parseTime'             => $this->parseTime,
-          'executionTime'         => $xml['lastUpdate'],
-          'id'                    => $station->id,
-          'stationName'           => $station->name,
-          'availableDocks'        => $station->nbEmptyDocks,
+          'executionTime'         => (string) $xml['lastUpdate'],
+          'id'                    => (string) $station->id,
+          'stationName'           => (string) $station->name,
+          'availableDocks'        => (string) $station->nbEmptyDocks,
           'totalDocks'            => '',
-          'latitude'              => $station->lat,
-          'longitude'             => $station->long,
+          'latitude'              => (string) $station->lat,
+          'longitude'             => (string) $station->long,
           'statusValue'           => $statusValue,
           'statusKey'             => '',
-          'availableBikes'        => $station->nbBikes,
+          'availableBikes'        => (string) $station->nbBikes,
           'stAddress1'            => '',
           'stAddress2'            => '',
           'city'                  => '',
@@ -214,16 +214,16 @@ class Fetch extends CI_Controller {
         }
         $data[] = array(
           'parseTime'             => $this->parseTime,
-          'executionTime'         => $xml['lastUpdate'],
-          'id'                    => $station->id,
-          'stationName'           => $station->name,
-          'availableDocks'        => $station->nbEmptyDocks,
+          'executionTime'         => (string) $xml['lastUpdate'],
+          'id'                    => (string) $station->id,
+          'stationName'           => (string) $station->name,
+          'availableDocks'        => (string) $station->nbEmptyDocks,
           'totalDocks'            => '',
-          'latitude'              => $station->lat,
-          'longitude'             => $station->long,
+          'latitude'              => (string) $station->lat,
+          'longitude'             => (string) $station->long,
           'statusValue'           => $statusValue,
           'statusKey'             => '',
-          'availableBikes'        => $station->nbBikes,
+          'availableBikes'        => (string) $station->nbBikes,
           'stAddress1'            => '',
           'stAddress2'            => '',
           'city'                  => '',
@@ -303,7 +303,6 @@ class Fetch extends CI_Controller {
   public function dev($site = 'chicago') {
     $this->$site('stationsdev');
   }
-
 
   private function fetch($url) {
     $ch = curl_init($url);
