@@ -1,5 +1,5 @@
 {{? it.data.history }}
-<h2>{{=it.lang.title}}</span></h2>
+<h2>{{=it.lang.title}}</h2>
 <ul>
 {{~it.data.history :value:index}}
   <li class="{{=value.class}}" data-timer-start-la="{{=value.start.la}}" data-timer-start-lo="{{=value.start.lo}}"  data-timer-stop-la="{{=value.stop.la}}" data-timer-stop-lo="{{=value.stop.lo}}">
