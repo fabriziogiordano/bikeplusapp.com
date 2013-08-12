@@ -12,8 +12,8 @@ var BikePlus = (function(w,d){
       docksdebounce,
       oldcenter,
       timerId,
-      globalLatitude    = bikeplusoptions.lang.mobile_js_global_lat,
-      globalLongitude   = bikeplusoptions.lang.mobile_js_global_lng,
+      cityLatitude      = globalLatitude  = bikeplusoptions.lang.mobile_js_global_lat,
+      cityLongitude     = globalLongitude = bikeplusoptions.lang.mobile_js_global_lng,
       facebookConnected = false,
       $mapbikes         = d.getElementById('mapbikes'),
       $resetlocation    = d.getElementById('resetlocation'),
@@ -28,6 +28,7 @@ var BikePlus = (function(w,d){
       $searchcontent    = d.getElementById('searchcontent'),
       $menu             = d.getElementById('menu'),
       $menulist         = d.getElementById('menulist'),
+      $outofreach       = d.getElementById('outofreach'),
       marker_width = 70,
       marker_height = 50;
 
@@ -80,7 +81,7 @@ var BikePlus = (function(w,d){
     });
 
     google.maps.event.addListener(map, 'bounds_changed', function() {
-      if(typeof docksdebounce !== 'undefined' && (Date.now()-docksdebounce<100) ) {
+      if(typeof docksdebounce !== 'undefined' && (Date.now()-docksdebounce < 250) ) {
         return;
       }
       docksdebounce = +Date.now();
@@ -111,10 +112,12 @@ var BikePlus = (function(w,d){
   function generateMarker() {
     var zoom = map.getZoom();
     var bounds = map.getBounds();
+    var positionInBound = false;
 
     for(var i=0,ln=bikeplusoptions.data.stations.length; i < ln; i++) {
       var latLng = new google.maps.LatLng(bikeplusoptions.data.stations[i].la, bikeplusoptions.data.stations[i].lo);
       if(bounds.contains(latLng)) {
+        positionInBound = true;
         markersdata.push({
           'id'     : bikeplusoptions.data.stations[i].id,
           'ad'     : bikeplusoptions.data.stations[i].ad,
@@ -126,6 +129,14 @@ var BikePlus = (function(w,d){
         });
       }
     }
+    if(!positionInBound){
+      $outofreach.classList.add('active');
+      return;
+    }
+    $outofreach.classList.remove('active');
+
+
+    DEBUG && console.log(markersdata);
 
     for(var i=0,ln=markersdata.length; i < ln; i++) {
       id = markersdata[i].id;
@@ -436,7 +447,7 @@ var BikePlus = (function(w,d){
   }
 
   function getDocks() {
-    if(typeof w.bikeplusoptions.data !== 'undefined' && (Date.now() - w.bikeplusoptions.data.fetched < 60000*2) ){
+    if(typeof bikeplusoptions.data !== 'undefined' && (Date.now() - bikeplusoptions.data.fetched < 60000*2) ){
       $parseTime.innerHTML = w.bikeplusoptions.data.parseTime;
       generateMarker();
       return;
@@ -917,6 +928,18 @@ var BikePlus = (function(w,d){
   $bookmarkscontent.addEventListener(START_EV, bookmarksContentHandler);
 
   $dock.addEventListener(START_EV, markersHandler, false);
+
+  $outofreach.addEventListener(START_EV, function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    DEBUG && console.log('$outofreach.addEventListener', e);
+    DEBUG && console.log('$outofreach.addEventListener', cityLatitude);
+    DEBUG && console.log('$outofreach.addEventListener', cityLongitude);
+
+    map.setCenter(new google.maps.LatLng(cityLatitude, cityLongitude));
+    $resetlocation.style.display = 'block';
+    dragstart = true;
+  });
 
   setTimeout(function () { w.scrollTo(0, 1); }, 500);
 

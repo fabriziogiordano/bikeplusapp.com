@@ -25,6 +25,7 @@
 <div id="portrait">
   <div id="search"><span><?php echo lang('mobile_cancel');?></span><input id="targetinput" type="text" value="" /></div>
   <div id="searchcontent">Adding more point of interest</div>
+  <div id="outofreach"><p><span><?php echo lang('mobile_outofreachmoveme');?></span><?php echo lang('mobile_outofreach'); ?> <?php echo lang('mobile_city'); ?>.</p></div>
   <header><h1><i><?php echo lang('mobile_city');?></i><span class="icon-bicycle"></span><strong>+</strong></h1></header>
   <div id="menu"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><span class="icon-list"></span></div>
   <div id="menulist"></div>
@@ -82,8 +83,7 @@ bikeplusoptions = {
         ]
       },
       timerlist : {
-        title    : '<?php echo lang('mobile_historytitle'); ?>',
-
+        title    : '<?php echo lang('mobile_historytitle'); ?>'
       }
     }
   },

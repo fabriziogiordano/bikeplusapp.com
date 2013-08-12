@@ -25,3 +25,5 @@ $lang['mobile_js_ride_finish'] = 'finish ride';
 $lang['mobile_js_bookmarks_added'] = 'added';
 $lang['mobile_js_global_lat'] = '42.3606881';
 $lang['mobile_js_global_lng'] = '-71.0587449';
+$lang['mobile_outofreachmoveme'] = 'Move me there';
+$lang['mobile_outofreach'] = 'It looks like you are <br/>far way from';

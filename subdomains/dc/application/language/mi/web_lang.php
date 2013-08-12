@@ -25,3 +25,5 @@ $lang['mobile_js_ride_finish'] = 'Finisci pedalata';
 $lang['mobile_js_bookmarks_added'] = 'aggiunto';
 $lang['mobile_js_global_lat'] = '45.4644613';
 $lang['mobile_js_global_lng'] = '9.1892213';
+$lang['mobile_outofreachmoveme'] = 'Spostami qui';
+$lang['mobile_outofreach'] = 'Risulti essere<br/> lontano da ';

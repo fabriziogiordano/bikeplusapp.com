@@ -25,3 +25,5 @@ mobile_js_ride_finish,finish ride,finish ride,finish ride,finish ride,Finisci pe
 mobile_js_bookmarks_added,added,added,added,added,aggiunto,added,added
 mobile_js_global_lat,40.7266119,42.3606881,38.8935965,40.7266119,45.4644613,40.7266119,41.8796972
 mobile_js_global_lng,-73.9930061,-71.0587449,-77.014576,-73.9930061,9.1892213,-73.9930061,-87.6316906
+mobile_outofreachmoveme,Move me there,Move me there,Move me there,Move me there,Spostami qui,Move me there,Move me there
+mobile_outofreach,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,Risulti essere<br/> lontano da ,It looks like you are <br/>far way from,It looks like you are <br/>far way from
