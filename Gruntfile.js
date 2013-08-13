@@ -55,11 +55,12 @@ module.exports = function(grunt) {
       }
     },
     copy: {
-      boston: { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/boston/' } ] },
-      dc:     { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/dc/'     } ] },
-      mi:     { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/mi/'     } ] },
-      nyc:    { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/nyc/'    } ] },
-      beta:   { files: [ { expand: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/beta/'   } ] }
+      beta:   { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/beta/'   } ] },
+      boston: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/boston/' } ] },
+      dc:     { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/dc/'     } ] },
+      london: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/london/' } ] },
+      mi:     { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/mi/'     } ] },
+      nyc:    { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/nyc/'    } ] }
     },
     dot: {
       dist: {

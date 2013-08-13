@@ -1,29 +1,29 @@
-Key,beta,boston,dc,dev,mi,nyc,chicago
-site,nyc,boston,dc,dev,mi,nyc,chicago
-assets,,,,dev.,,,
-head_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app
-web_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app
-web_summary,The easiest way to be updated about DEV locations,The easiest way to be updated about Boston bikes locations,The easiest way to be updated about Washington DC bikes locations,The easiest way to be updated about CitiBike locations,Il modo più semplice di essere aggiornati sulle bici di BIKEMI,The easiest way to be updated about CitiBike locations,The easiest way to be updated about Chicago bikes locations
-web_url,http://beta.bikeplusapp.com,http://boston.bikeplusapp.com,http://dc.bikeplusapp.com,http://dev.bikeplusapp.com,http://mi.bikeplusapp.com,http://nyc.bikeplusapp.com,http://chicago.bikeplusapp.com
-mobile_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app
-mobile_city,Beta,Boston,Washington DC,Development,Milano,New York City,Chicago
-mobile_loading,Loading...,Loading...,Loading...,Loading...,Loading...,Loading...,Loading...
-mobile_cancel,Cancel,Cancel,Cancel,Cancel,Cancella,Cancel,Cancel
-mobile_logout,Logout,Logout,Logout,Logout,Esci,Logout,Logout
-mobile_loginwithfacebook,connect with facebook,connect with facebook,connect with facebook,connect with facebook,loggati con Facebook,connect with facebook,connect with facebook
-mobile_logintemporarytext,"We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","Stiamo aggiungendo altre funzionalità. Continua a pedalare e stai con noi! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp</a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>"
-mobile_dockdistance,distance,distance,distance,distance,distanza,distance,distance
-mobile_dockdistanceunit,mi,mi,mi,mi,km,mi,mi
-mobile_dockdistanceratio,3958.75586574405,3958.75586574405,3958.75586574405,3958.75586574405,6371,3958.75586574405,3958.75586574405
-mobile_historytitle,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,Storico <div>(corse minori di un minuto non sono in questa lista)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>
-mobile_bookmarkstitle,Bookmarks,Bookmarks,Bookmarks,Bookmarks,Favoriti,Bookmarks,Bookmarks
-mobile_bookmarksnone,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,Non hai favoriti salvati. Aggiungi favoriti per sapere immediatamente quante bici e postazioni sono disponibili.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.
-mobile_js_logout,Are you sure you want to logout?,Are you sure you want to logout?,Are you sure you want to logout?,Are you sure you want to logout?,Vuoi uscire?,Are you sure you want to logout?,Are you sure you want to logout?
-mobile_js_ride_start,start ride,start ride,start ride,start ride,Inizia a pedalare,start ride,start ride
-mobile_js_ride_starting,starting...,starting...,starting...,starting...,starting...,starting...,starting...
-mobile_js_ride_finish,finish ride,finish ride,finish ride,finish ride,Finisci pedalata,finish ride,finish ride
-mobile_js_bookmarks_added,added,added,added,added,aggiunto,added,added
-mobile_js_global_lat,40.7266119,42.3606881,38.8981274,40.7563131,45.4644613,40.7563131,41.8796972
-mobile_js_global_lng,-73.9930061,-71.0587449,-77.0364326,-73.9863692,9.1892213,-73.9863692,-87.6316906
-mobile_outofreachmoveme,Move me there,Move me there,Move me there,Move me there,Spostami qui,Move me there,Move me there
-mobile_outofreach,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,Risulti essere<br/> lontano da ,It looks like you are <br/>far way from,It looks like you are <br/>far way from
+Key,beta,boston,dc,dev,milano,nyc,chicago,london
+site,nyc,boston,dc,dev,milano,nyc,chicago,london
+assets,,,,dev.,,,,
+head_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app,London Bike Plus app
+web_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app,London Bike Plus app
+web_summary,The easiest way to be updated about DEV locations,The easiest way to be updated about Boston bikes locations,The easiest way to be updated about Washington DC bikes locations,The easiest way to be updated about CitiBike locations,Il modo più semplice di essere aggiornati sulle bici di BIKEMI,The easiest way to be updated about CitiBike locations,The easiest way to be updated about Chicago bikes locations,The easiest way to be updated about Chicago bikes locations
+web_url,http://beta.bikeplusapp.com,http://boston.bikeplusapp.com,http://dc.bikeplusapp.com,http://dev.bikeplusapp.com,http://milano.bikeplusapp.com,http://nyc.bikeplusapp.com,http://chicago.bikeplusapp.com,http://london.bikeplusapp.com
+mobile_title,BETA (NYC) Bike Plus app,Boston Bike Plus app,DC Bike Plus app,DEV Bike Plus app,Milano Bike Plus app,NYC Bike Plus app,Chicago Bike Plus app,London Bike Plus app
+mobile_city,Beta,Boston,Washington DC,Development,Milano,New York City,Chicago,London
+mobile_loading,Loading...,Loading...,Loading...,Loading...,Loading...,Loading...,Loading...,Loading...
+mobile_cancel,Cancel,Cancel,Cancel,Cancel,Cancella,Cancel,Cancel,Cancel
+mobile_logout,Logout,Logout,Logout,Logout,Esci,Logout,Logout,Logout
+mobile_loginwithfacebook,connect with facebook,connect with facebook,connect with facebook,connect with facebook,loggati con Facebook,connect with facebook,connect with facebook,connect with facebook
+mobile_logintemporarytext,"We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","Stiamo aggiungendo altre funzionalità. Continua a pedalare e stai con noi! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp</a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>","We are planning to add more features soon. Keep riding and stick with us! <a href=""http://twitter.com/bikeplusapp"">@bikeplusapp </a>"
+mobile_dockdistance,distance,distance,distance,distance,distanza,distance,distance,distance
+mobile_dockdistanceunit,mi,mi,mi,mi,km,mi,mi,mi
+mobile_dockdistanceratio,3958.75586574405,3958.75586574405,3958.75586574405,3958.75586574405,6371,3958.75586574405,3958.75586574405,3958.75586574405
+mobile_historytitle,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,Storico <div>(corse minori di un minuto non sono in questa lista)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>,History <div>(ride shorter than 1 minutes are not listed)</div>
+mobile_bookmarkstitle,Bookmarks,Bookmarks,Bookmarks,Bookmarks,Favoriti,Bookmarks,Bookmarks,Bookmarks
+mobile_bookmarksnone,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,Non hai favoriti salvati. Aggiungi favoriti per sapere immediatamente quante bici e postazioni sono disponibili.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.,No bookmarks saved. Add some bookmarks to know immediately how many bikes or docks are available.
+mobile_js_logout,Are you sure you want to logout?,Are you sure you want to logout?,Are you sure you want to logout?,Are you sure you want to logout?,Vuoi uscire?,Are you sure you want to logout?,Are you sure you want to logout?,Are you sure you want to logout?
+mobile_js_ride_start,start ride,start ride,start ride,start ride,Inizia a pedalare,start ride,start ride,start ride
+mobile_js_ride_starting,starting...,starting...,starting...,starting...,starting...,starting...,starting...,starting...
+mobile_js_ride_finish,finish ride,finish ride,finish ride,finish ride,Finisci pedalata,finish ride,finish ride,finish ride
+mobile_js_bookmarks_added,added,added,added,added,aggiunto,added,added,added
+mobile_js_global_lat,40.7266119,42.3606881,38.8981274,40.7563131,45.4644613,40.7563131,41.8796972,51.510296
+mobile_js_global_lng,-73.9930061,-71.0587449,-77.0364326,-73.9863692,9.1892213,-73.9863692,-87.6316906,-0.1334229
+mobile_outofreachmoveme,Move me there,Move me there,Move me there,Move me there,Spostami qui,Move me there,Move me there,Move me there
+mobile_outofreach,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from,Risulti essere<br/> lontano da ,It looks like you are <br/>far way from,It looks like you are <br/>far way from,It looks like you are <br/>far way from

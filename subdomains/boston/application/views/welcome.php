@@ -78,7 +78,8 @@ bikeplusoptions = {
           {id: 'boston'  , label : 'Boston'},
           {id: 'chicago' , label : 'Chicago'},
           {id: 'dc'      , label : 'Washington DC'},
-          {id: 'mi'      , label : 'Milano'},
+          {id: 'london'  , label : 'London'},
+          {id: 'milano'  , label : 'Milano'},
           {id: 'nyc'     , label : 'New York City'}
         ]
       },

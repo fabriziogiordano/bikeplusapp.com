@@ -1,10 +1,10 @@
 <?php
-$lang['site'] = 'mi';
+$lang['site'] = 'milano';
 $lang['assets'] = '';
 $lang['head_title'] = 'Milano Bike Plus app';
 $lang['web_title'] = 'Milano Bike Plus app';
 $lang['web_summary'] = 'Il modo più semplice di essere aggiornati sulle bici di BIKEMI';
-$lang['web_url'] = 'http://mi.bikeplusapp.com';
+$lang['web_url'] = 'http://milano.bikeplusapp.com';
 $lang['mobile_title'] = 'Milano Bike Plus app';
 $lang['mobile_city'] = 'Milano';
 $lang['mobile_loading'] = 'Loading...';
