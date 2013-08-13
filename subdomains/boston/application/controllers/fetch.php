@@ -182,7 +182,6 @@ class Fetch extends CI_Controller {
   }
 
   public function london($table = '') {
-    return;
     //Fetch data
     $url  = 'https://web.barclayscyclehire.tfl.gov.uk/maps';
     $html = $this->fetch($url);
@@ -202,27 +201,24 @@ class Fetch extends CI_Controller {
       $data = array();
 
       foreach($matches[1] as $station) {
-        $station = '{'.$station.'}';
-        var_dump($station);
-
-        $station = json_decode($station);
-        var_dump($station);die;
+        $station = preg_replace("/([a-zA-Z0-9_]+?):/" , "\"$1\":", $station); // fix variable names
+        $station = json_decode('{'.$station.'}');
         $statusValue = 1;
-        if($station['temporary'] == 'true') {
+        if($station->temporary == 'true') {
           $statusValue = 0;
         }
         $data[] = array(
           'parseTime'             => $this->parseTime,
           'executionTime'         => '',
-          'id'                    => $station['id'],
-          'stationName'           => $station['name'],
-          'availableDocks'        => $station['nbEmptyDocks'],
+          'id'                    => (string) $station->id,
+          'stationName'           => (string) $station->name,
+          'availableDocks'        => (string) $station->nbEmptyDocks,
           'totalDocks'            => '',
-          'latitude'              => $station['lat'],
-          'longitude'             => $station['long'],
+          'latitude'              => (string) $station->lat,
+          'longitude'             => (string) $station->long,
           'statusValue'           => $statusValue,
           'statusKey'             => '',
-          'availableBikes'        => $station['nbBikes'],
+          'availableBikes'        => (string) $station->nbBikes,
           'stAddress1'            => '',
           'stAddress2'            => '',
           'city'                  => '',
