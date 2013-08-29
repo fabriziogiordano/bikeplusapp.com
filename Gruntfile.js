@@ -59,7 +59,7 @@ module.exports = function(grunt) {
       boston: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/boston/' } ] },
       dc:     { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/dc/'     } ] },
       london: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/london/' } ] },
-      mi:     { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/mi/'     } ] },
+      milano: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/milano/'     } ] },
       nyc:    { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/nyc/'    } ] }
     },
     dot: {
