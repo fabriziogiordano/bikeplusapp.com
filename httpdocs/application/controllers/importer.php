@@ -39,6 +39,9 @@ class Importer extends CI_Controller {
     }
 
     $citibikejsonsmap = directory_map($citibikejsons);
+
+var_dump($citibikejsonsmap); die;
+
     $citibikejsonsmap = array_filter($citibikejsonsmap, function($js){
       if(!is_string($js)) return;
       return (substr($js, -4, 4) == 'json') ? true : false;
@@ -84,33 +87,33 @@ function toBottom() {
         continue;
       }
 
-      $executionTime = human_to_unix($json['executionTime']) + 14400;
-      $data = array();
-      foreach ($json['stations'] as $value) {
-        $data[] = array(
-          'parseTime'             => $parseTime,
-          'executionTime'         => $executionTime,
-          'id'                    => $value['id'],
-          'stationName'           => $value['stationName'],
-          'availableDocks'        => $value['availableDocks'],
-          'totalDocks'            => $value['totalDocks'],
-          'latitude'              => $value['latitude'],
-          'longitude'             => $value['longitude'],
-          'statusValue'           => $value['statusValue'],
-          'statusKey'             => $value['statusKey'],
-          'availableBikes'        => $value['availableBikes'],
-          'stAddress1'            => $value['stAddress1'],
-          'stAddress2'            => $value['stAddress2'],
-          'city'                  => $value['city'],
-          'postalCode'            => $value['postalCode'],
-          'location'              => $value['location'],
-          'altitude'              => $value['altitude'],
-          'testStation'           => $value['testStation'],
-          'lastCommunicationTime' => $value['lastCommunicationTime'],
-          'landMark'              => $value['landMark']
-        );
-      }
-      $this->db->insert_batch('stations', $data);
+      //$executionTime = human_to_unix($json['executionTime']) + 14400;
+      //$data = array();
+      //foreach ($json['stations'] as $value) {
+      //  $data[] = array(
+      //    'parseTime'             => $parseTime,
+      //    'executionTime'         => $executionTime,
+      //    'id'                    => $value['id'],
+      //    'stationName'           => $value['stationName'],
+      //    'availableDocks'        => $value['availableDocks'],
+      //    'totalDocks'            => $value['totalDocks'],
+      //    'latitude'              => $value['latitude'],
+      //    'longitude'             => $value['longitude'],
+      //    'statusValue'           => $value['statusValue'],
+      //    'statusKey'             => $value['statusKey'],
+      //    'availableBikes'        => $value['availableBikes'],
+      //    'stAddress1'            => $value['stAddress1'],
+      //    'stAddress2'            => $value['stAddress2'],
+      //    'city'                  => $value['city'],
+      //    'postalCode'            => $value['postalCode'],
+      //    'location'              => $value['location'],
+      //    'altitude'              => $value['altitude'],
+      //    'testStation'           => $value['testStation'],
+      //    'lastCommunicationTime' => $value['lastCommunicationTime'],
+      //    'landMark'              => $value['landMark']
+      //  );
+      //}
+      //$this->db->insert_batch('stations', $data);
 
       unset($data);
       unset($json);

@@ -11,7 +11,7 @@ $lang['mobile_loading'] = 'Loading...';
 $lang['mobile_cancel'] = 'Cancella';
 $lang['mobile_logout'] = 'Esci';
 $lang['mobile_loginwithfacebook'] = 'loggati con Facebook';
-$lang['mobile_logintemporarytext'] = 'Stiamo aggiungendo altre funzionalità. Continua a pedalare e stai con noi! <a href="http://twitter.com/bikeplusapp">@bikeplusapp</a>';
+$lang['mobile_logintemporarytext'] = 'Seguici su <a href="http://twitter.com/bikeplusapp">@bikeplusapp</a>';
 $lang['mobile_dockdistance'] = 'distanza';
 $lang['mobile_dockdistanceunit'] = 'km';
 $lang['mobile_dockdistanceratio'] = '6371';
