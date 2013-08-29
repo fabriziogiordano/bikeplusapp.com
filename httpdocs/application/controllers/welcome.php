@@ -2,6 +2,8 @@
 
 class Welcome extends CI_Controller {
   public function index(){
+    redirect('http://nyc.bikeplusapp.com', 'location', 301);
+    die;
     $this->lang->load('web', $this->config->item('bikeplus_language'));
     $this->load->helper('file');
 
