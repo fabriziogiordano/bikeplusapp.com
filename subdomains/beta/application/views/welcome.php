@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!--[if IEMobile 7 ]>  <html class="no-js iem7"> <![endif]-->
-<!--[if (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if   IEMobile 7 ]>  <html class="no-js iem7"> <![endif]-->
+<!--[if   (gt IEMobile 7)|!(IEMobile)]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <title><?php echo lang('head_title');?></title>

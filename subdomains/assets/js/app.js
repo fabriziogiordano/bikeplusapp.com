@@ -696,8 +696,8 @@ var BikePlus = (function(w,d){
     e.stopPropagation();
     var target = e.target;
     while(target) {
-      if(target.className === 'icon-cycle') {
-        w.location.reload();break;
+      if(target.className === 'icon-direction') {
+        //w.location.reload();break;
         $search.classList.toggle('active');
         break;
       }

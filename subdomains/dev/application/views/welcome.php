@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
   <meta http-equiv="cleartype" content="on">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="//<?= $assets['path'] ?>assets.bikeplusapp.com/img/touch/apple-touch-icon-144x144-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="//<?= $assets['path'] ?>assets.bikeplusapp.com/img/touch/apple-touch-icon-114x114-precomposed.png">
@@ -29,7 +29,7 @@
   <header><h1><i><?php echo lang('mobile_city');?></i><span class="icon-bicycle"></span><strong>+</strong></h1></header>
   <div id="menu"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><span class="icon-list"></span></div>
   <div id="menulist"></div>
-  <div id="timer"><strong class="time"></strong><span class="icon-stopwatch"></span><span class="icon-cycle"></span></div>
+  <div id="timer"><strong class="time"></strong><span class="icon-stopwatch"></span><span class="icon-direction"></span></div>
   <div id="timerlist"></div>
   <div id="parseTime"><?php echo lang('mobile_loading');?></div>
   <div id="resetlocation"><span class="icon-location-2"></span></div>
