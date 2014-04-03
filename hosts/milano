@@ -1,10 +1,10 @@
 NameVirtualHost *:80
 
 <VirtualHost *:80>
-  DocumentRoot "/var/www/subdomains/beta/"
-  ServerName beta.loc.bikeplusapp.com
+  DocumentRoot "/var/www/subdomains/milano/"
+  ServerName dev.milano.bikeplusapp.com
 
-  <Directory "/var/www/subdomains/beta/">
+  <Directory "/var/www/subdomains/milano/">
     Options Indexes FollowSymLinks Includes ExecCGI
     AllowOverride All
     Order allow,deny
@@ -12,6 +12,6 @@ NameVirtualHost *:80
   </Directory>
 
   LogFormat "%h %l %u %t \"%r\" %>s %b" common
-  ErrorLog /var/www/logs/beta.log
-  CustomLog /var/www/logs/beta.log common
+  ErrorLog /var/www/logs/milano.log
+  CustomLog /var/www/logs/milano.log common
 </VirtualHost>

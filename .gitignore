@@ -3,5 +3,7 @@ _old
 php.php
 application/logs
 logs/fetch
+logs/*.log
 node_modules
 db
+.vagrant

@@ -3,8 +3,7 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-if( $_SERVER['SERVER_NAME'] == 'dev.bikeplusapp.com' ||
-    $_SERVER['SERVER_NAME'] == 'dev.loc.bikeplusapp.com') {
+if($_SERVER['SERVER_NAME'] == 'dev.bikeplusapp.com') {
 	$db['default']['hostname'] = 'localhost';
 	$db['default']['username'] = 'root';
 	$db['default']['password'] = 'sempreio';

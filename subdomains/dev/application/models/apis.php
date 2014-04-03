@@ -4,7 +4,7 @@ class Apis extends CI_Model {
     parent::__construct();
   }
 
-  function latest($site){
+  function latest($site) {
     $js = array();
     $json = array();
 

@@ -2,7 +2,7 @@ NameVirtualHost *:80
 
 <VirtualHost *:80>
   DocumentRoot "/var/www/subdomains/dev/"
-  ServerName dev.loc.bikeplusapp.com
+  ServerName dev.bikeplusapp.com
 
   <Directory "/var/www/subdomains/dev/">
     Options Indexes FollowSymLinks Includes ExecCGI
