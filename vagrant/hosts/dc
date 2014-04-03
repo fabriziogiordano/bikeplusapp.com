@@ -1,0 +1,17 @@
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+  DocumentRoot "/var/www/subdomains/dc/"
+  ServerName dc.loc.bikeplusapp.com
+
+  <Directory "/var/www/subdomains/dc/">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  LogFormat "%h %l %u %t \"%r\" %>s %b" common
+  ErrorLog /var/www/logs/dc.log
+  CustomLog /var/www/logs/dc.log common
+</VirtualHost>

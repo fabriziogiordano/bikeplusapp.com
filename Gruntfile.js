@@ -54,6 +54,7 @@ module.exports = function(grunt) {
         }
       }
     },
+    //Copy subdomains/dev to all other subdomains
     copy: {
       beta:   { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/beta/'   } ] },
       boston: { files: [ { expand: true, dot: true, cwd: 'subdomains/dev/', src: ['**'], dest: 'subdomains/boston/' } ] },

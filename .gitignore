@@ -4,3 +4,4 @@ php.php
 application/logs
 logs/fetch
 node_modules
+db

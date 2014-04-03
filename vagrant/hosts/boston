@@ -1,0 +1,17 @@
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+  DocumentRoot "/var/www/subdomains/boston/"
+  ServerName boston.loc.bikeplusapp.com
+
+  <Directory "/var/www/subdomains/boston/">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Order allow,deny
+    Allow from all
+  </Directory>
+
+  LogFormat "%h %l %u %t \"%r\" %>s %b" common
+  ErrorLog /var/www/logs/boston.log
+  CustomLog /var/www/logs/boston.log common
+</VirtualHost>
